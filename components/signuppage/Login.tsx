@@ -3,6 +3,7 @@ import { RxEyeOpen } from "react-icons/rx";
 import { GoEyeClosed } from "react-icons/go";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 type loginProps = {
   showLogin: boolean;
@@ -36,6 +37,10 @@ const Login = ({
   });
 
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+
+  const redirect = searchParams.get("redirect") || "/";
 
   const handleIdentifier = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -72,7 +77,7 @@ const Login = ({
 
     if (!validate()) return;
 
-    await fetch(`${apiUrl}/login`, {
+    const res = await fetch(`${apiUrl}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -82,6 +87,10 @@ const Login = ({
         password: identifier.password,
       }),
     });
+
+    if (res.status === 201) {
+      router.push(redirect);
+    }
 
     setIdentifier({ identifier: "", password: "" });
   };
@@ -142,7 +151,7 @@ const Login = ({
           <button
             type="submit"
             className="bg-gray-400 rounded-full p-2 cursor-pointer w-28 text-white active:scale-90 outline-0"
-            onClick={() => router.push("/homepage")}
+            // onClick={() => router.push("/homepage")}
           >
             Login
           </button>

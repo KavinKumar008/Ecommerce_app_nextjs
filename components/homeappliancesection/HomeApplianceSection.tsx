@@ -39,7 +39,7 @@ const HomeApplianceSection = ({ homeApp }: HomeApplianceProps) => {
                       alt=""
                       width={150}
                       height={150}
-                      className="cursor-pointer w-28 h-36 bg-gray-200"
+                      className="cursor-pointer w-28 h-36 bg-gray-200 active:scale-90"
                       onClick={() =>
                         router.push(`/productdetailspage/${item.id}`)
                       }
@@ -60,6 +60,7 @@ const HomeApplianceSection = ({ homeApp }: HomeApplianceProps) => {
                     <p className="text-sm font-semibold text-gray-400 line-through flex items-center">
                       <FaRupeeSign /> {item.offer_price}
                     </p>
+                    <p className="text-sm text-orange-500">{item.offer}</p>
                   </div>
                 </div>
               </div>

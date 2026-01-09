@@ -14,25 +14,23 @@ const ProductsProvider = ({ children }: { children: React.ReactNode }) => {
   const [allProducts, setAllProducts] = useState<allProductsType[]>([]);
   const apiURL = process.env.NEXT_PUBLIC_API_URL;
 
-  const getProductsApi = async () => {
-    try {
-      const res = await fetch(`${apiURL}/allproducts`);
-      const data = await res.json();
-
-      if (res.status === 200) {
-        console.log(data, "skjqowqowiqwiqpwiqpwi");
-        setAllProducts(data?.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    const getProductsApi = async () => {
+      try {
+        const res = await fetch(`${apiURL}/allproducts`);
+        const data = await res.json();
+
+        if (res.status === 200) {
+          console.log(data, "skjqowqowiqwiqpwiqpwi");
+          setAllProducts(data?.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getProductsApi();
   }, []);
 
-  console.log(allProducts, "allproductssssss");
   return (
     <ProductContext.Provider value={{ allProducts }}>
       {children}

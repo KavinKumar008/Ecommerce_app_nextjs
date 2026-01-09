@@ -112,7 +112,7 @@ const PaymentSection = () => {
         </div>
 
         <div className="lg:w-[30%]">
-          <OrderSummaryCard />
+          <OrderSummaryCard currentPage={pathName} />
         </div>
       </section>
     </main>

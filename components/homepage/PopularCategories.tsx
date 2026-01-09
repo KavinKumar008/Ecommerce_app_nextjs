@@ -1,42 +1,13 @@
 "use client";
-// import { PopularCategoriesArray } from "@/staticarray/homepage/PopularCategories";
+import { useHome } from "@/providers/HomePageProvider";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-
-type popularCategoriesProps = {
-  ID?: number;
-  THUMBNAIL: string;
-  CATALOG: string;
-  CATEGORY_ID: number;
-};
-
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const PopularCategories = () => {
-  const [popularCategories, setPopularCategories] = useState<
-    popularCategoriesProps[]
-  >([]);
-
   const router = useRouter();
-  const popularCategoriesApi = async () => {
-    try {
-      const res = await fetch(`${apiUrl}/home/popularcategories`);
-      const data = await res.json();
-      if (res.status === 200) {
-        setPopularCategories(data.data);
-      }
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  useEffect(() => {
-    popularCategoriesApi();
-  }, []);
+  const { popularCategories } = useHome();
 
-  console.log(popularCategories);
   return (
     <section className="lg:pl-28 lg:pr-28 lg:p-10 md:p-8 p-8">
       <h1 className="text-3xl font-bold">Popular Categories</h1>

@@ -42,7 +42,7 @@ const Pagination = ({ products, page, total }: PaginationProps) => {
           {/* {currentItems.map((item, index) => (
         <div key={index}>{item.brand_name}</div>
       ))} */}
-          <div className="grid lg:grid-cols-4 lg:gap-12 md:grid-cols-2 place-items-center md:gap-8  gap-5 lg:mt-0 md:mt-0 mt-5">
+          <div className="grid lg:grid-cols-4 lg:gap-12 md:grid-cols-3 place-items-center md:gap-8  gap-5 lg:mt-0 md:mt-0 mt-5">
             {products &&
               products?.map((item: any) => (
                 <div key={item.id} className="rounded-lg w-[220px]">

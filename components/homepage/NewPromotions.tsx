@@ -1,47 +1,19 @@
 "use client";
 
-// import { Promotions } from "@/staticarray/homepage/Promotions";
 import Image from "next/image";
-import { MdNavigateNext } from "react-icons/md";
+// import { MdNavigateNext } from "react-icons/md";
 import BorderLine from "../borderline/BorderLine";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useHome } from "@/providers/HomePageProvider";
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
-type promotionsProps = {
-  ID: number;
-  THUMBNAIL: string;
-  FEATURES: string;
-  OFFER: string;
-  SNAME: string;
-  TYPE: string;
-};
 const NewPromotions = () => {
-  const [promotionsData, setPromotionsData] = useState<promotionsProps[]>([]);
   const router = useRouter();
 
-  const getPromotionsApi = async () => {
-    try {
-      const res = await fetch(`${apiUrl}/home/promotions`);
-      const data = await res.json();
+  const { promotions } = useHome();
 
-      if (res.status === 200) {
-        setPromotionsData(data.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getPromotionsApi();
-  }, []);
-
-  console.log(promotionsData);
-  const bigCard = promotionsData.filter((item) => item.TYPE === "bigCard");
-  const smallCard = promotionsData.filter((item) => item.TYPE === "small");
-  const tallCard = promotionsData.filter((item) => item.TYPE === "tall");
+  const bigCard = promotions.filter((item) => item.TYPE === "bigCard");
+  const smallCard = promotions.filter((item) => item.TYPE === "small");
+  const tallCard = promotions.filter((item) => item.TYPE === "tall");
 
   // console.log(bigCard, smallCard, tallCard, "sdkjsdjsdjsl");
   return (

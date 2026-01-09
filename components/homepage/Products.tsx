@@ -1,44 +1,18 @@
 "use client";
 
-// import { ProductsArray } from "@/staticarray/homepage/ProductArray";
+import { useHome } from "@/providers/HomePageProvider";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
-type productsprops = {
-  ID: number;
-  THUMBNAIL: string;
-  CATALOG: string;
-  CATEGORY_ID: number;
-};
 
 const Products = () => {
-  const [productsData, setProductsData] = useState<productsprops[]>([]);
   const router = useRouter();
 
-  const ProductsDataApi = async () => {
-    try {
-      const res = await fetch(`${apiUrl}/home/products`);
-      const data = await res.json();
+  const { products } = useHome();
 
-      if (res.status === 200) {
-        setProductsData(data.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  console.log(productsData);
-  useEffect(() => {
-    ProductsDataApi();
-  }, []);
   return (
     <>
       <div className="lg:pl-32 lg:pr-32 lg:p-12 md:p-6 lg:flex md:flex justify-evenly lg:gap-10 md:gap-10 gap-6 grid grid-rows-2 grid-cols-3 place-items-center">
-        {productsData.map((product) => (
+        {products.map((product) => (
           <div
             className="lg:flex lg:flex-col lg:items-center md:flex md:flex-col md:items-center grid place-items-center gap-4"
             key={product.ID}

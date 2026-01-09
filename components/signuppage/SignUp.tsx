@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import { GoEyeClosed } from "react-icons/go";
 import { RxEyeOpen } from "react-icons/rx";
 import Login from "./Login";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -27,6 +27,12 @@ const SignUp = () => {
   const [showLogin, setShowLogin] = useState(false);
 
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+
+  const redirect = searchParams.get("redirect") || "/";
+
+  console.log(searchParams, "searchparamsss", redirect);
 
   const handleIdentifier = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -98,7 +104,8 @@ const SignUp = () => {
     setIdentifier({ uname: "", identifier: "", password: "" });
 
     if (res.status === 201) {
-      router.push("/homepage");
+      router.push(redirect);
+      // router.push("/homepage");
     }
   };
 
@@ -112,7 +119,7 @@ const SignUp = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <div className="lg:w-[750px] lg:h-[450px] md:w-[750px] md:h-[450px] w-full rounded-lg shadow-2xl lg:flex md:flex">
+      <div className="lg:w-[750px] lg:h-auto md:w-[750px] md:h-auto w-full rounded-lg shadow-2xl lg:flex md:flex">
         <div className="lg:w-[50%] md:w-[50%] w-full">
           <Image src={ecomweb} alt="signupimage" className="w-92 h-[450px]" />
         </div>

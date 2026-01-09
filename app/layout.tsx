@@ -4,6 +4,7 @@ import "./globals.css";
 import NavBar from "@/components/homepage/NavBar";
 import Footer from "@/components/homepage/Footer";
 import ProductsProvider from "@/providers/ProductsProvider";
+import ToastWrapper from "@/components/toastwrapper/ToastWrapper";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -41,6 +42,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${montSerrat.variable} ${roboto.variable}`}>
         {children}
+        <ToastWrapper />
       </body>
     </html>
   );

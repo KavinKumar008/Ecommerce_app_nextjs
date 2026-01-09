@@ -5,7 +5,9 @@ import Image from "next/image";
 import { MdShoppingCart } from "react-icons/md";
 import { allProductsType } from "@/types/Product";
 import { FaRupeeSign } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useAuth } from "@/providers/AuthProvider";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 type HeaderProps = {
   filterAllProducts: allProductsType[];
@@ -14,6 +16,12 @@ type HeaderProps = {
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const Header = ({ filterAllProducts }: HeaderProps) => {
+  const { isLoggedIn } = useAuth();
+
+  console.log(isLoggedIn, "isloggedinnnnnn");
+
+  const router = useRouter();
+
   // const [selectedImages, setSelectedImages] = useState("");
   // const [apiData, setApiData] = useState<{ id: number; offer_price: number }[]>(
   //   []
@@ -33,6 +41,12 @@ const Header = ({ filterAllProducts }: HeaderProps) => {
 
   const cartPostApi = async (productId: number, price: number) => {
     try {
+      if (!isLoggedIn) {
+        router.push(`/signuppage?redirect=/productdetailspage/${productId}`);
+        return;
+      }
+
+      toast.success("Item Added to Cart");
       const res = await fetch(`${apiUrl}/cartapi`, {
         method: "POST",
         headers: {

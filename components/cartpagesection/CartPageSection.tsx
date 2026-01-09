@@ -1,7 +1,6 @@
 "use client";
 
 import PopularProducts from "../homepage/PopularProducts";
-// import { PopularProductsArray } from "@/staticarray/homepage/PopularProducts";
 import Image from "next/image";
 // import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";

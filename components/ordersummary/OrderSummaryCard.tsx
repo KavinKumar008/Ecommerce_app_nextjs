@@ -1,11 +1,17 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 import { CiLock } from "react-icons/ci";
 import { IoChevronDown } from "react-icons/io5";
 import { MdOutlineDiscount } from "react-icons/md";
 import { FaRupeeSign } from "react-icons/fa";
 import { useCart } from "@/providers/CartPageProvider";
+import { loadRazorpay } from "@/utils/loadRazorpay";
+import { toast } from "react-toastify";
 
-const OrderSummaryCard = ({ currentPage }) => {
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+const OrderSummaryCard = ({ currentPage, handleSubmit }) => {
   const router = useRouter();
 
   const { cartItemGet } = useCart();
@@ -18,13 +24,87 @@ const OrderSummaryCard = ({ currentPage }) => {
     0
   );
 
+  const handlePayment = async () => {
+    const res = await loadRazorpay();
+
+    console.log(res, "responseeeee");
+
+    if (!res) {
+      alert("Razorpay SDK failed");
+      return;
+    }
+
+    // create order
+    const orderRes = await fetch(`${apiUrl}/create-order`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ cartId: cartItemGet[0].CART_ID }),
+    });
+
+    const order = await orderRes.json();
+
+    console.log(order, "orderresponse", order.cartId);
+
+    // open razorpay
+
+    const options = {
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
+      amount: order.amount,
+      currency: "INR",
+      name: "My Ecommerce Store",
+      description: "Order Payment",
+      order_id: order.id,
+
+      handler: async function (response: any) {
+        // verify payment
+        const verifyRes = await fetch(`${apiUrl}/verify-payment`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...response, cartId: order.cartId }),
+        });
+
+        const verifyData = await verifyRes.json();
+
+        // alert("Payment Successfull");
+        if (verifyData.success) {
+          router.push("/thanksorderpage");
+        } else {
+          alert("Payment verification failed");
+        }
+      },
+
+      theme: {
+        color: "#000",
+      },
+    };
+
+    const rzp = new (window as any).Razorpay(options);
+
+    rzp.open();
+  };
+
   const push = () => {
     if (currentPage === "Cart") {
-      router.push(`shippingdetailspage`);
+      if (cartItemGet.length === 0) {
+        toast.warn("Please add items to the cart");
+        return;
+      }
+      router.push("/shippingdetailspage");
+      return;
     } else if (currentPage === "Shippingdetails") {
-      router.push(`paymentpage`);
+      const isValid = handleSubmit();
+      if (!isValid) return;
+      router.push("/paymentpage");
+      return;
+    } else if (currentPage === "Payment") {
+      handlePayment();
     }
   };
+
   return (
     <div className=" p-5 lg:mt-28 md:mt-28 mt-10 bg-gray-100 rounded-md">
       <h1 className="text-lg font-semibold">Order Summary</h1>
@@ -65,7 +145,8 @@ const OrderSummaryCard = ({ currentPage }) => {
         </p>
       </div>
       <button
-        className="flex items-center justify-center gap-2 mt-3 bg-blue-900 text-white p-3 rounded-full w-full text-sm font-semibold cursor-pointer active:scale-90 transition duration-300"
+        disabled={currentPage === "Cart" && cartItemGet.length === 0}
+        className="diasbled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-3 outline-0 bg-blue-900 text-white p-3 rounded-full w-full text-sm font-semibold cursor-pointer active:scale-90 transition duration-300"
         onClick={() => push()}
       >
         <CiLock />

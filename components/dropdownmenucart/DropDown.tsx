@@ -14,7 +14,7 @@ type DropDownProps = {
 
 const DropDown = ({ isDropDownOpen, setIsDropDownOpen }: DropDownProps) => {
   const router = useRouter();
-  const { cartItemGet, setCartItemGet, deleteCartApi } = useCart();
+  const { cartItemGet, setCartItemGet, deleteCartApi, fetchCart } = useCart();
 
   const totalPrice = cartItemGet.reduce(
     (acc, currentItem) =>
@@ -33,10 +33,14 @@ const DropDown = ({ isDropDownOpen, setIsDropDownOpen }: DropDownProps) => {
           onClick={() => setIsDropDownOpen(true)}
         >
           <MdShoppingCart className="text-gray-500 text-xl" />
-          <span className="text-[10px] font-extrabold border border-gray-300 bg-gray-400 rounded-full w-4 h-4 flex items-center justify-center absolute left-3 bottom-2">
-            {" "}
-            {cartItemGet.length}
-          </span>
+          {cartItemGet.length ? (
+            <span className="text-[10px] font-extrabold border border-gray-300 bg-gray-400 rounded-full w-4 h-4 flex items-center justify-center absolute left-3 bottom-2">
+              {" "}
+              {cartItemGet.length}
+            </span>
+          ) : (
+            ""
+          )}
 
           <p className="lg:text-sm md:text-sm text-lg">Cart</p>
         </div>
@@ -50,7 +54,10 @@ const DropDown = ({ isDropDownOpen, setIsDropDownOpen }: DropDownProps) => {
                 <h1 className="font-semibold">Cart ({cartItemGet.length})</h1>
                 <button
                   className="text-sm text-pink-400 cursor-pointer active:scale-90"
-                  onClick={() => router.push("/cartpage")}
+                  onClick={() => {
+                    fetchCart();
+                    router.push("/cartpage");
+                  }}
                 >
                   View Cart
                 </button>

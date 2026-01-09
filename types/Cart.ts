@@ -1,4 +1,5 @@
 export type cartApiProps = {
+  CART_ID:number;
   CART_ITEM_ID: number;
   QUANTITY: number;
   PRICE: string;

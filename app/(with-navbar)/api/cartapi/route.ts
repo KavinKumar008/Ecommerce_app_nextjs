@@ -73,7 +73,9 @@ export async function GET(){
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-        const [cartRows]=await db.query(`SELECT CI.ID AS CART_ITEM_ID,
+        const [cartRows]=await db.query(`SELECT 
+          CI.ID AS CART_ITEM_ID,
+          CI.CART_ID,
           CI.PRODUCT_ID,CI.QUANTITY,
           CI.PRICE,CI.TOTAL_PRICE,
           P.BRAND_NAME,
