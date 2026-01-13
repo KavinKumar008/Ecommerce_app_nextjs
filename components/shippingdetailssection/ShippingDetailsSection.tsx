@@ -4,6 +4,8 @@ import CheckOutFlow from "../checkoutflow/CheckOutFlow";
 import OrderSummaryCard from "../ordersummary/OrderSummaryCard";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { useCart } from "@/providers/CartPageProvider";
+import { useRazorOrder } from "@/providers/OrderProvider";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -36,6 +38,10 @@ const ShippingDetailsSection = () => {
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
+
+  const { cartItemGet } = useCart();
+
+  const { setOrder } = useRazorOrder();
 
   const pathName =
     cartPathName.slice(1).charAt(0).toUpperCase() + cartPathName.slice(2, 16);
@@ -101,7 +107,7 @@ const ShippingDetailsSection = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     // console.log(e);
     // e.preventDefault();
     if (!validateForm()) {
@@ -109,16 +115,39 @@ const ShippingDetailsSection = () => {
       return false;
     }
 
-    console.log("Validated data:", formData);
-    // Proceed to payment / next step
-
-    fetch(`${apiUrl}/shippingdetails`, {
+    const orderRes = await fetch(`${apiUrl}/create-order`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ form: { ...formData } }),
+      body: JSON.stringify({
+        form: { ...formData },
+        cartId: cartItemGet[0].CART_ID,
+      }),
     });
+
+    const data = await orderRes.json();
+
+    if (orderRes.status === 200) {
+      setOrder({
+        orderId: data.orderId,
+        razorpayOrderId: data.razorpayOrderId,
+        amount: data.amount,
+        currency: data.currency,
+        cartId: data.cartId,
+      });
+    }
+
+    console.log(data, "Validated data:", formData);
+    // Proceed to payment / next step
+
+    // fetch(`${apiUrl}/shippingdetails`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ form: { ...formData } }),
+    // });
 
     return true;
   };

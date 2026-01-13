@@ -1,13 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { cartApiProps } from "@/types/Cart";
 
 type CartContextType = {
   cartItemGet: cartApiProps[];
   setCartItemGet: React.Dispatch<React.SetStateAction<cartApiProps[]>>;
   deleteCartApi: (cartItemId: number) => Promise<void>;
-  fetchCart: () => Promise<void>;
 };
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -16,18 +15,22 @@ const cartPageContext = createContext<CartContextType | null>(null);
 const CartPageProvider = ({ children }: { children: React.ReactNode }) => {
   const [cartItemGet, setCartItemGet] = useState<cartApiProps[]>([]);
 
-  const fetchCart = async () => {
-    try {
-      const res = await fetch(`${apiUrl}/cartapi/getcart`);
-      const data = await res.json();
-      console.log(res, "asldjksldjasldjalsdjk");
-      if (res.status === 200) {
-        setCartItemGet(data.data);
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const res = await fetch(`${apiUrl}/cartapi/getcart`);
+        const data = await res.json();
+        console.log(res, "asldjksldjasldjalsdjk");
+        if (res.status === 200) {
+          setCartItemGet(data.data);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    };
+
+    fetchCart();
+  }, []);
 
   const deleteCartApi = async (cartItemId: number) => {
     setCartItemGet((prev) =>
@@ -47,7 +50,7 @@ const CartPageProvider = ({ children }: { children: React.ReactNode }) => {
   };
   return (
     <cartPageContext.Provider
-      value={{ cartItemGet, setCartItemGet, deleteCartApi, fetchCart }}
+      value={{ cartItemGet, setCartItemGet, deleteCartApi }}
     >
       {children}
     </cartPageContext.Provider>

@@ -14,7 +14,7 @@ type DropDownProps = {
 
 const DropDown = ({ isDropDownOpen, setIsDropDownOpen }: DropDownProps) => {
   const router = useRouter();
-  const { cartItemGet, setCartItemGet, deleteCartApi, fetchCart } = useCart();
+  const { cartItemGet, setCartItemGet, deleteCartApi } = useCart();
 
   const totalPrice = cartItemGet.reduce(
     (acc, currentItem) =>
@@ -55,7 +55,6 @@ const DropDown = ({ isDropDownOpen, setIsDropDownOpen }: DropDownProps) => {
                 <button
                   className="text-sm text-pink-400 cursor-pointer active:scale-90"
                   onClick={() => {
-                    fetchCart();
                     router.push("/cartpage");
                   }}
                 >

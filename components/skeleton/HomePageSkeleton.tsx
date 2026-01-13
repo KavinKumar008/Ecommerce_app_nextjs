@@ -1,5 +1,3 @@
-import React from "react";
-
 const HomePageSkeleton = () => {
   return (
     <div className="lg:flex lg:flex-row lg:justify-between md:flex md:flex-row md:gap-20 flex flex-col-reverse gap-5 md:pl-8 md:pr-8 md:p-16 p-8">

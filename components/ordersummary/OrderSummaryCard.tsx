@@ -8,6 +8,7 @@ import { FaRupeeSign } from "react-icons/fa";
 import { useCart } from "@/providers/CartPageProvider";
 import { loadRazorpay } from "@/utils/loadRazorpay";
 import { toast } from "react-toastify";
+import { useRazorOrder } from "@/providers/OrderProvider";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -15,6 +16,8 @@ const OrderSummaryCard = ({ currentPage, handleSubmit }) => {
   const router = useRouter();
 
   const { cartItemGet } = useCart();
+
+  const { order } = useRazorOrder();
 
   console.log(cartItemGet, "woiuqiouoqwu");
 
@@ -25,6 +28,10 @@ const OrderSummaryCard = ({ currentPage, handleSubmit }) => {
   );
 
   const handlePayment = async () => {
+    if (!order) {
+      toast.error("Order not created");
+      return;
+    }
     const res = await loadRazorpay();
 
     console.log(res, "responseeeee");
@@ -34,19 +41,6 @@ const OrderSummaryCard = ({ currentPage, handleSubmit }) => {
       return;
     }
 
-    // create order
-    const orderRes = await fetch(`${apiUrl}/create-order`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ cartId: cartItemGet[0].CART_ID }),
-    });
-
-    const order = await orderRes.json();
-
-    console.log(order, "orderresponse", order.cartId);
-
     // open razorpay
 
     const options = {
@@ -55,16 +49,23 @@ const OrderSummaryCard = ({ currentPage, handleSubmit }) => {
       currency: "INR",
       name: "My Ecommerce Store",
       description: "Order Payment",
-      order_id: order.id,
+      order_id: order.razorpayOrderId,
 
       handler: async function (response: any) {
+        console.log(response, "razorpayresponseeeeee");
         // verify payment
         const verifyRes = await fetch(`${apiUrl}/verify-payment`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ ...response, cartId: order.cartId }),
+          body: JSON.stringify({
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_signature: response.razorpay_signature,
+            cartId: order.cartId,
+            orderId: order?.orderId,
+          }),
         });
 
         const verifyData = await verifyRes.json();
@@ -145,8 +146,11 @@ const OrderSummaryCard = ({ currentPage, handleSubmit }) => {
         </p>
       </div>
       <button
-        disabled={currentPage === "Cart" && cartItemGet.length === 0}
-        className="diasbled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-3 outline-0 bg-blue-900 text-white p-3 rounded-full w-full text-sm font-semibold cursor-pointer active:scale-90 transition duration-300"
+        disabled={
+          (currentPage === "Cart" && cartItemGet.length === 0) ||
+          (currentPage === "Payment" && !order)
+        }
+        className="disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-3 outline-0 bg-blue-900 text-white p-3 rounded-full w-full text-sm font-semibold cursor-pointer active:scale-90 transition duration-300"
         onClick={() => push()}
       >
         <CiLock />

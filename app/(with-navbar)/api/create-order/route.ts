@@ -11,10 +11,11 @@ export async function POST(request:Request){
      if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    const {cartId} = await request.json();
+    const {cartId,form} = await request.json();
 
-    console.log(cartId,"createordercartidddddd");
+        const {address,city,fname,lname,mail,mobileno,postalcode,state} = {...form}
 
+    console.log(cartId,"createordercartidddddd",address,city);
     const [cartItems]: any = await db.query(
       `SELECT price, quantity 
        FROM cart_items 
@@ -32,21 +33,43 @@ export async function POST(request:Request){
 
     const totalAmount = cartItems.reduce((sum:number,item:any)=> sum+item.price * item.quantity,0);
 
+    // Insert order (pending)
+
+    const [orderResults] :any = await db.query(`
+        INSERT INTO orders 
+        (user_id, cart_id, total_amount, payment_status)
+        values (?, ?, ?, 'pending')
+        `,[userId,cartId,totalAmount])
+
+        const orderId = orderResults.insertId;
+
+        console.log(orderId,"orderiddddd");
+
+         const [shippingRows] = await db.query(`
+            INSERT INTO shippingdetails (order_id, user_id, mail_id, fname, lname, address_line1, address_line2, city, postal_code, phone, state)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            `,[orderId,userId,mail,fname,lname,address,address,city,postalcode,mobileno,state])
+
+
   const razorpayOrder = await razorpay.orders.create({
     amount:totalAmount *100,
     currency:"INR",
-    receipt:`receipt_${Date.now()}`
+    receipt:`order_${orderId}`
   })
 
-      // Insert order (pending)
+      console.log(razorpayOrder,"updateorderrowssssssss");
 
-      await db.query(`INSERT INTO orders 
-        (user_id,cart_id,razorpay_order_id,total_amount,payment_status)
-        values (?, ?, ?, ?, 'pending')
-        `,[userId,cartId,razorpayOrder.id,totalAmount])
 
-    return NextResponse.json({id:razorpayOrder.id,amount:razorpayOrder.amount,currency:razorpayOrder.currency,cartId:cartId})
+   // 5️⃣ Save Razorpay order id
+
+  const [updateRows] = await db.query(`
+    UPDATE orders SET razorpay_order_id = ? WHERE id = ?
+    `,[razorpayOrder.id,orderId]);
+
+
+    return NextResponse.json({orderId,razorpayOrderId:razorpayOrder.id,amount:razorpayOrder.amount,currency:razorpayOrder.currency,cartId:cartId},{status:200})
   } catch (error) {
+    console.log(error,"erroetttrtrtrtrtr")
     return NextResponse.json({error:"Failed to create order"},{status:500});
   }
 }

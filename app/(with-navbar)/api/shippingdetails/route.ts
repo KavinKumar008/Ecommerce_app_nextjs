@@ -22,9 +22,9 @@ export async function POST(request:Request){
             `)
 
         const [shippingRows] = await db.query(`
-            INSERT INTO shippingdetails(order_id,user_id,mail_id,fname,lname,address_line1,city,postal_code,phone)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-            `)
+            INSERT INTO shippingdetails(order_id,user_id,mail_id,fname,lname,address_line1,address_line2,city,postal_code,phone)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            `,[,userId,mail,fname,lname,address,address,city,postalcode,mobileno])
 
         return NextResponse.json({data:shippingRows},{status:200})
     } catch (error) {

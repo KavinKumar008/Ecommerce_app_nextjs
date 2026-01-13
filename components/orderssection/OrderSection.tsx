@@ -1,11 +1,24 @@
 "use client";
 
+import { useAuth } from "@/providers/AuthProvider";
 import { useOrder } from "@/providers/MyOrderProvider";
 import Image from "next/image";
 import { FaRupeeSign } from "react-icons/fa";
 
 const OrderSection = () => {
   const { orderData } = useOrder();
+
+  const { isLoggedIn } = useAuth();
+
+  if (!isLoggedIn) {
+    return (
+      <div className="bg-red-50 lg:pl-34 lg:pr-34 lg:p-10 md:pl-34 md:pr-34 md:p-10 lg:mt-0 md:mt-0 mt-10">
+        <p className="text-center">
+          Please login and pay to see your order products
+        </p>
+      </div>
+    );
+  }
 
   return (
     <section className="lg:pl-32 lg:pr-32 lg:p-10 md:p-7 p-3 lg:mt-0 md:mt-0 mt-12">

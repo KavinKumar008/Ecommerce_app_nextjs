@@ -6,6 +6,7 @@ import CartPageProvider from "@/providers/CartPageProvider";
 import HomePageProvider from "@/providers/HomePageProvider";
 import { AuthProvider } from "@/providers/AuthProvider";
 import MyOrderProvider from "@/providers/MyOrderProvider";
+import OrderProvider from "@/providers/OrderProvider";
 
 const montSerrat = Montserrat({
   variable: "--font-montserrat",
@@ -26,19 +27,21 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <MyOrderProvider>
-        <AuthProvider>
-          <HomePageProvider>
-            <CartPageProvider>
-              <ProductsProvider>
-                <NavBar />
-                {children}
-                <Footer />
-              </ProductsProvider>
-            </CartPageProvider>
-          </HomePageProvider>
-        </AuthProvider>
-      </MyOrderProvider>
+      <OrderProvider>
+        <MyOrderProvider>
+          <AuthProvider>
+            <HomePageProvider>
+              <CartPageProvider>
+                <ProductsProvider>
+                  <NavBar />
+                  {children}
+                  <Footer />
+                </ProductsProvider>
+              </CartPageProvider>
+            </HomePageProvider>
+          </AuthProvider>
+        </MyOrderProvider>
+      </OrderProvider>
     </>
   );
 }
