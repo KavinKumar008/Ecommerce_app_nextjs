@@ -12,7 +12,12 @@ import { useRazorOrder } from "@/providers/OrderProvider";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-const OrderSummaryCard = ({ currentPage, handleSubmit }) => {
+type OrderSummaryProps = {
+  currentPage: string;
+  handleSubmit?: () => Promise<boolean> | boolean;
+};
+
+const OrderSummaryCard = ({ currentPage, handleSubmit }: OrderSummaryProps) => {
   const router = useRouter();
 
   const { cartItemGet } = useCart();
@@ -88,7 +93,7 @@ const OrderSummaryCard = ({ currentPage, handleSubmit }) => {
     rzp.open();
   };
 
-  const push = () => {
+  const push = async () => {
     if (currentPage === "Cart") {
       if (cartItemGet.length === 0) {
         toast.warn("Please add items to the cart");
@@ -97,7 +102,8 @@ const OrderSummaryCard = ({ currentPage, handleSubmit }) => {
       router.push("/shippingdetailspage");
       return;
     } else if (currentPage === "Shippingdetails") {
-      const isValid = handleSubmit();
+      if (!handleSubmit) return;
+      const isValid = await handleSubmit();
       if (!isValid) return;
       router.push("/paymentpage");
       return;

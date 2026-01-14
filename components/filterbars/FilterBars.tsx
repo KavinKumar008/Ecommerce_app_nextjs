@@ -1,8 +1,8 @@
 import { RxCross2 } from "react-icons/rx";
 import * as Accordion from "@radix-ui/react-accordion";
 import { FaAngleDown } from "react-icons/fa6";
-import React, { useState } from "react";
-import { FaRupeeSign } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+// import { FaRupeeSign } from "react-icons/fa";
 
 type filterBarProps = {
   filterBarShoes: string[];
@@ -27,6 +27,7 @@ const FilterBars = ({
   showDiscountOnly,
   setShowDiscountOnly,
 }: filterBarProps) => {
+  const [isMounted, setIsMounted] = useState(false);
   const [storedCategories, setStoredCategories] = useState<string[]>([]);
   // const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [tempSelectedBrands, setTempSelectedBrands] =
@@ -36,6 +37,16 @@ const FilterBars = ({
   const [tempMaxPrice, setTempMaxPrice] = useState(maximumPrice || "");
 
   const [showAll, setShowAll] = useState(false);
+
+  useEffect(() => {
+    if (!isMounted) {
+      setIsMounted(true);
+    }
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   const visibleFilters = showAll
     ? storedCategories
@@ -158,15 +169,15 @@ const FilterBars = ({
       <div className="mt-5">
         <Accordion.Root type="single" collapsible>
           <Accordion.Item value="brand">
-            <Accordion.Trigger asChild>
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-lg font-bold">Brand</h2>
-                </div>
-                <div>
-                  <FaAngleDown className="cursor-pointer text-gray-400" />
-                </div>
-              </div>
+            <Accordion.Trigger className="flex items-center justify-between w-full">
+              {/* <div className="flex items-center justify-between"> */}
+              {/* <div> */}
+              <h2 className="text-lg font-bold">Brand</h2>
+              {/* </div> */}
+              {/* <div> */}
+              <FaAngleDown className="cursor-pointer text-gray-400" />
+              {/* </div> */}
+              {/* </div> */}
             </Accordion.Trigger>
             <Accordion.Content className="w-full min-w-[250px]">
               <section className="mt-5">
@@ -222,76 +233,76 @@ const FilterBars = ({
       {/* Price  */}
       <div className="mt-5">
         <Accordion.Root type="single" collapsible>
-          <Accordion.Item value="categories">
-            <Accordion.Trigger asChild>
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-lg font-bold">Price</h2>
-                </div>
-                <div>
-                  <FaAngleDown className="cursor-pointer text-gray-400" />
-                </div>
-              </div>
+          <Accordion.Item value="price">
+            <Accordion.Trigger className="flex items-center justify-between w-full">
+              {/* <div className="flex items-center justify-between"> */}
+              {/* <div> */}
+              <h2 className="text-lg font-bold">Price</h2>
+              {/* </div> */}
+              {/* <div> */}
+              <FaAngleDown className="cursor-pointer text-gray-400" />
+              {/* </div> */}
+              {/* </div> */}
             </Accordion.Trigger>
             <Accordion.Content className="w-full min-w-[250px]">
-              <section>
-                <div className="flex items-center gap-5 mt-5">
-                  {/* <label htmlFor="minprice">Min</label> */}
-                  <select
-                    name="minprice"
-                    id="minprice"
-                    value={tempMinPrice}
-                    className="w-24 p-1 outline-0 border border-black opacity-80 text-sm"
-                    onChange={(e) => {
-                      setTempMinPrice(e.target.value);
-                    }}
-                  >
-                    <option value="">Min</option>
-                    <option value="500">₹ 500</option>
-                    <option value="1000">₹ 1000</option>
-                    <option value="1500">₹ 1500</option>
-                    <option value="2000">₹ 2000</option>
-                    <option value="3000">₹ 3000</option>
-                  </select>
-                  <span className="text-sm text-blue-200">to</span>
-                  <select
-                    name="maxprice"
-                    id="maxprice"
-                    value={tempMaxPrice}
-                    className="w-24 p-1 outline-0 border border-black opacity-80 text-sm"
-                    onChange={(e) => {
-                      setTempMaxPrice(e.target.value);
-                    }}
-                  >
-                    <option value="500">₹ 500</option>
-                    <option value="1000">₹ 1000</option>
-                    <option value="1500">₹ 1500</option>
-                    <option value="2000">₹ 2000</option>
-                    <option value="3000">₹ 3000</option>
-                    <option value="999999">₹ 3000 +</option>
-                  </select>
-                </div>
-                <div className="flex justify-between mt-5">
-                  <button
-                    className="cursor-pointer text-blue-300 text-sm active:scale-90 outline-0"
-                    onClick={() => {
-                      setTempMinPrice("");
-                      setTempMaxPrice("");
-                      setMinimumPrice("");
-                      setMaximumPrice("");
-                    }}
-                  >
-                    Clear Filter
-                  </button>
-                  <button
-                    type="button"
-                    className="cursor-pointer text-blue-300 text-sm active:scale-90 outline-0"
-                    onClick={applyPriceFilter}
-                  >
-                    Apply filter
-                  </button>
-                </div>
-              </section>
+              {/* <section> */}
+              <div className="flex items-center gap-5 mt-5">
+                {/* <label htmlFor="minprice">Min</label> */}
+                <select
+                  name="minprice"
+                  id="minprice"
+                  value={tempMinPrice}
+                  className="w-24 p-1 outline-0 border border-black opacity-80 text-sm"
+                  onChange={(e) => {
+                    setTempMinPrice(e.target.value);
+                  }}
+                >
+                  <option value="">Min</option>
+                  <option value="500">₹ 500</option>
+                  <option value="1000">₹ 1000</option>
+                  <option value="1500">₹ 1500</option>
+                  <option value="2000">₹ 2000</option>
+                  <option value="3000">₹ 3000</option>
+                </select>
+                <span className="text-sm text-blue-200">to</span>
+                <select
+                  name="maxprice"
+                  id="maxprice"
+                  value={tempMaxPrice}
+                  className="w-24 p-1 outline-0 border border-black opacity-80 text-sm"
+                  onChange={(e) => {
+                    setTempMaxPrice(e.target.value);
+                  }}
+                >
+                  <option value="500">₹ 500</option>
+                  <option value="1000">₹ 1000</option>
+                  <option value="1500">₹ 1500</option>
+                  <option value="2000">₹ 2000</option>
+                  <option value="3000">₹ 3000</option>
+                  <option value="999999">₹ 3000 +</option>
+                </select>
+              </div>
+              <div className="flex justify-between mt-5">
+                <button
+                  className="cursor-pointer text-blue-300 text-sm active:scale-90 outline-0"
+                  onClick={() => {
+                    setTempMinPrice("");
+                    setTempMaxPrice("");
+                    setMinimumPrice("");
+                    setMaximumPrice("");
+                  }}
+                >
+                  Clear Filter
+                </button>
+                <button
+                  type="button"
+                  className="cursor-pointer text-blue-300 text-sm active:scale-90 outline-0"
+                  onClick={applyPriceFilter}
+                >
+                  Apply filter
+                </button>
+              </div>
+              {/* </section> */}
             </Accordion.Content>
           </Accordion.Item>
         </Accordion.Root>
@@ -305,62 +316,62 @@ const FilterBars = ({
 
       <div className="mt-5">
         <Accordion.Root type="single" collapsible>
-          <Accordion.Item value="price ">
-            <Accordion.Trigger asChild>
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-lg font-bold">Discount</h2>
-                </div>
-                <div>
-                  <FaAngleDown className="cursor-pointer text-gray-400" />
-                </div>
-              </div>
+          <Accordion.Item value="discount">
+            <Accordion.Trigger className="flex items-center justify-between w-full">
+              {/* <div className="flex items-center justify-between"> */}
+              {/* <div> */}
+              <h2 className="text-lg font-bold">Discount</h2>
+              {/* </div> */}
+              {/* <div> */}
+              <FaAngleDown className="cursor-pointer text-gray-400" />
+              {/* </div> */}
+              {/* </div> */}
             </Accordion.Trigger>
             <Accordion.Content className="w-full min-w-[250px]">
-              <section>
-                <div
-                  className={`flex justify-end ${
-                    showDiscountOnly ? "mt-3" : "mt-0"
-                  }`}
-                >
-                  {showDiscountOnly ? (
-                    <button
-                      type="button"
-                      className="cursor-pointer text-sm active:scale-90 text-blue-300"
-                      onClick={() => setShowDiscountOnly(null)}
-                    >
-                      Clear All
-                    </button>
-                  ) : (
-                    ""
-                  )}
-                </div>
-                <div className="space-y-4 mt-5">
-                  {discountsArray.map((discount, index) => {
-                    const discountValue = parseInt(discount);
+              {/* <section> */}
+              <div
+                className={`flex justify-end ${
+                  showDiscountOnly ? "mt-3" : "mt-0"
+                }`}
+              >
+                {showDiscountOnly ? (
+                  <button
+                    type="button"
+                    className="cursor-pointer text-sm active:scale-90 text-blue-300"
+                    onClick={() => setShowDiscountOnly(null)}
+                  >
+                    Clear All
+                  </button>
+                ) : (
+                  ""
+                )}
+              </div>
+              <div className="space-y-4 mt-5">
+                {discountsArray.map((discount, index) => {
+                  const discountValue = parseInt(discount);
 
-                    return (
-                      <div key={index}>
-                        <div className="flex items-center gap-5">
-                          <input
-                            type="radio"
-                            name="discount"
-                            className="accent-orange-400"
-                            checked={showDiscountOnly === discountValue}
-                            onChange={(e) => {
-                              if (e.target.checked) {
-                                setShowDiscountOnly(discountValue);
-                                addedFiltersShown(e, discount, "radio");
-                              }
-                            }}
-                          />
-                          <p className="text-sm">{discount}</p>
-                        </div>
+                  return (
+                    <div key={index}>
+                      <div className="flex items-center gap-5">
+                        <input
+                          type="radio"
+                          name="discount"
+                          className="accent-orange-400"
+                          checked={showDiscountOnly === discountValue}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setShowDiscountOnly(discountValue);
+                              addedFiltersShown(e, discount, "radio");
+                            }
+                          }}
+                        />
+                        <p className="text-sm">{discount}</p>
                       </div>
-                    );
-                  })}
-                </div>
-              </section>
+                    </div>
+                  );
+                })}
+              </div>
+              {/* </section> */}
             </Accordion.Content>
           </Accordion.Item>
         </Accordion.Root>

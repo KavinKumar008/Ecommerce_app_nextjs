@@ -10,6 +10,14 @@ const OrderSection = () => {
 
   const { isLoggedIn } = useAuth();
 
+  // if (orderData) {
+  //   return (
+  //     <div className="bg-red-50 lg:pl-34 lg:pr-34 lg:p-10 md:pl-34 md:pr-34 md:p-10 lg:mt-0 md:mt-0 mt-10">
+  //       Pay and see your products
+  //     </div>
+  //   );
+  // }
+
   if (!isLoggedIn) {
     return (
       <div className="bg-red-50 lg:pl-34 lg:pr-34 lg:p-10 md:pl-34 md:pr-34 md:p-10 lg:mt-0 md:mt-0 mt-10">

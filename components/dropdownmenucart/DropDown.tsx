@@ -6,13 +6,21 @@ import { MdDelete } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/providers/CartPageProvider";
 import { FaRupeeSign } from "react-icons/fa";
+import { useEffect } from "react";
 
 type DropDownProps = {
   isDropDownOpen: boolean;
   setIsDropDownOpen: (open: boolean) => void;
+  isMounted: boolean;
+  setIsMounted: (open: boolean) => void;
 };
 
-const DropDown = ({ isDropDownOpen, setIsDropDownOpen }: DropDownProps) => {
+const DropDown = ({
+  isDropDownOpen,
+  setIsDropDownOpen,
+  isMounted,
+  setIsMounted,
+}: DropDownProps) => {
   const router = useRouter();
   const { cartItemGet, setCartItemGet, deleteCartApi } = useCart();
 
@@ -22,15 +30,23 @@ const DropDown = ({ isDropDownOpen, setIsDropDownOpen }: DropDownProps) => {
     0
   );
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   console.log(cartItemGet.length, "oeiueeoiu");
 
   //   console.log(isDropDownOpen, "kdwkdjwkdj");
   return (
-    <DropdownMenu.Root open={isDropDownOpen}>
+    <DropdownMenu.Root open={isDropDownOpen} onOpenChange={setIsDropDownOpen}>
       <DropdownMenu.Trigger asChild>
         <div
           className="flex items-center gap-2 cursor-pointer outline-0 lg:p-0 md:p-0 p-4 relative active:scale-90"
-          onClick={() => setIsDropDownOpen(true)}
+          // onClick={() => setIsDropDownOpen(true)}
         >
           <MdShoppingCart className="text-gray-500 text-xl" />
           {cartItemGet.length ? (

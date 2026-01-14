@@ -1,5 +1,5 @@
 type CheckOutFlowProps = {
-  currentPage?: "Cart" | "Shippingdetails" | "Payment";
+  currentPage?: string;
 };
 
 const CheckOutFlow = ({ currentPage }: CheckOutFlowProps) => {

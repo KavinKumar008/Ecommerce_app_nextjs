@@ -21,8 +21,21 @@ export async function GET(){
             ORDER BY o.created_at DESC
             `,[userId])
 
+        // const [orderId] : any =    await db.query(`
+        //         SELECT id
+        //         FROM orders
+        //         where user_id = ?
+        //         `,[userId])
+
+        // const [shippingRows] = await db.query(`
+        //     SELECT id, fname, lname, address_line1, city, postal_code, phone, state
+        //     FROM shippingdetails
+        //     WHERE id = ? AND order_id = ?
+        //     `,[userId,orderId])
+
             return NextResponse.json({data:orderRows},{status:200})
     } catch (error) {
+        console.log(error,"shippingerrors")
         return NextResponse.json({error:"Unable to get the orders"},{status:500});
     }
 }

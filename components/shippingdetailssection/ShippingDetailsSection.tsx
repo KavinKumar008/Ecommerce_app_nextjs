@@ -107,7 +107,7 @@ const ShippingDetailsSection = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e?: React.FormEvent) => {
     // console.log(e);
     // e.preventDefault();
     if (!validateForm()) {

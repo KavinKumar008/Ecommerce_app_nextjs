@@ -5,13 +5,22 @@ import { MdShoppingCart } from "react-icons/md";
 import { MdPerson } from "react-icons/md";
 import DropDown from "../dropdownmenucart/DropDown";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { VscThreeBars } from "react-icons/vsc";
 
 const NavBar = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const router = useRouter();
+
+  const pathName = usePathname();
+
+  const isActive = (path: string) => {
+    return pathName === path;
+  };
+
+  console.log(pathName, "pathnammeeeenav");
 
   useEffect(() => {
     const handleResize = () => {
@@ -40,31 +49,45 @@ const NavBar = () => {
         <div className="lg:flex lg:flex-row lg:items-center md:flex md:flex-row md:items-center lg:gap-6 md:gap-4 cursor-pointer lg:mt-0 md:mt-0 mt-14 p-5 flex flex-col gap-5">
           <h1
             className="font-extrabold lg:text-xl md:text-2xl text-2xl active:scale-90"
-            onClick={() => router.push("/homepage")}
+            onClick={() => router.push("/")}
           >
             Emmable
           </h1>
           <p
-            className="text-gray-500 lg:text-sm md:text-sm text-lg active:scale-90"
+            className={` lg:text-sm md:text-sm text-lg active:scale-90 ${
+              isActive("/allproductpage")
+                ? "text-blue-500 font-semibold"
+                : "text-gray-500"
+            }`}
             onClick={() => router.push("/allproductpage")}
           >
             All Product
           </p>
           <p
-            className="text-gray-500 lg:text-sm md:text-sm text-lg active:scale-90"
+            className={`lg:text-sm md:text-sm text-lg active:scale-90 ${
+              isActive("/homeappliancepage")
+                ? "text-blue-500 font-semibold"
+                : "text-gray-500"
+            }`}
             onClick={() => router.push("/homeappliancepage")}
           >
             Home Appliance
           </p>
           <p
-            className="text-gray-500 lg:text-sm md:text-sm text-lg active:scale-90"
-            onClick={() => router.push(`solopage`)}
+            className={`lg:text-sm md:text-sm text-lg active:scale-90 ${
+              pathName.startsWith("/solopage")
+                ? "text-blue-500 font-semibold"
+                : "text-gray-500"
+            }`}
+            onClick={() => router.push("/solopage")}
           >
-            Product Kit
+            Products
           </p>
-          <p className="text-gray-500 lg:text-sm md:text-sm text-lg active:scale-90">
-            Promo
-          </p>
+          <a href="#promo">
+            <p className="text-gray-500 lg:text-sm md:text-sm text-lg active:scale-90">
+              Promo
+            </p>
+          </a>
           <a href="#footer">
             <p className="text-gray-500 lg:text-sm md:text-sm text-lg active:scale-90">
               Support
@@ -77,10 +100,16 @@ const NavBar = () => {
           <DropDown
             isDropDownOpen={isDropDownOpen}
             setIsDropDownOpen={setIsDropDownOpen}
+            isMounted={isMounted}
+            setIsMounted={setIsMounted}
           />
           {/* </div> */}
           <div
-            className="flex items-center gap-2 cursor-pointer lg:p-0 md:p-0 p-4"
+            className={`flex items-center gap-2 cursor-pointer lg:p-0 md:p-0 p-4 ${
+              isActive("/accountpage")
+                ? "text-blue-500 font-semibold"
+                : "text-gray-500"
+            }`}
             onClick={() => router.push("/accountpage")}
           >
             <MdPerson className="text-gray-500 text-xl" />

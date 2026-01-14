@@ -45,6 +45,7 @@ const AccountPageSection = () => {
   useEffect(() => {
     const accountsPageApi = async () => {
       try {
+        if (!isLoggedIn) return;
         const res = await fetch(`${apiUrl}/myaccount`);
         const data = await res.json();
 
@@ -76,22 +77,18 @@ const AccountPageSection = () => {
           <div key={item.id} className="flex flex-col items-center gap-10">
             <div className="w-26 h-26 border border-gray-400 rounded-full lg:mt-8 md:mt-8 relative">
               <div className="w-full h-full rounded-full overflow-hidden">
-                {avatarURL ? (
+                {avatarURL || item.avatar_url ? (
                   <Image
-                    src={add_file}
+                    src={add_file || item.avatar_url}
                     alt="avatarimage"
                     width={100}
                     height={100}
                     className="object-cover w-full h-full"
                   />
                 ) : (
-                  <Image
-                    src={item.avatar_url}
-                    alt=""
-                    width={100}
-                    height={100}
-                    className="object-cover w-full h-full"
-                  />
+                  <div className="w-full h-full bg-linear-to-br from-purple-400 to-blue-500 flex items-center justify-center text-white text-3xl font-bold">
+                    {item.name.charAt(0).toUpperCase()}
+                  </div>
                 )}
               </div>
 
@@ -150,7 +147,7 @@ const AccountPageSection = () => {
                 </div>
               </div>
             </div>
-            <div className="w-full flex lg:justify-around md:justify-around justify-between">
+            <div className="w-full flex lg:justify-between md:justify-around justify-between">
               <button
                 type="button"
                 className="text-sm cursor-pointer border border-gray-400 p-2 rounded-lg active:scale-90 transition duration-300 ease-in-out"

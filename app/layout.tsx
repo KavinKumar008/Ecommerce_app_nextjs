@@ -47,3 +47,7 @@ export default function RootLayout({
     </html>
   );
 }
+
+{
+  /* https://www.figma.com/design/nsM3mxZlRtvkMxuF4vkqez/Emmable--e-Commerce-Website-Design-Desktop-Version--Preview-?node-id=302-2&p=f&t=XflvNq8g6mgOKZq1-0 */
+}

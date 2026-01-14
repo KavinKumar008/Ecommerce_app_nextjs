@@ -10,9 +10,9 @@ type loginProps = {
   setShowLogin: React.Dispatch<React.SetStateAction<boolean>>;
   showPassword: boolean;
   setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
-  isValidEmail: (value: string) => string;
-  isValidMobile: (value: string) => string;
-  isValidatePass: (value: string) => string;
+  isValidEmail: (value: string) => boolean;
+  isValidMobile: (value: string) => boolean;
+  isValidatePass: (value: string) => boolean;
 };
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;

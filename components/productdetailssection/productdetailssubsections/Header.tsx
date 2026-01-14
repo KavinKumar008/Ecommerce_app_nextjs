@@ -66,7 +66,7 @@ const Header = ({ filterAllProducts }: HeaderProps) => {
     <section className="lg:pr-32 lg:pl-32 lg:p-10 md:p-8 lg:flex md:flex gap-10 lg:mt-0 md:mt-0 mt-5">
       <div className="">
         <div className="lg:flex md:flex gap-10">
-          <div className="lg:flex-col lg:justify-normal lg:gap-5 md:flex-col md:gap-5 md:justify-normal flex justify-between">
+          {/* <div className="lg:flex-col lg:justify-normal lg:gap-5 md:flex-col md:gap-5 md:justify-normal flex justify-between">
             <Image
               src={samsungtv}
               alt="samsungtv"
@@ -87,7 +87,7 @@ const Header = ({ filterAllProducts }: HeaderProps) => {
               alt="samsungtv"
               className="lg:h-16 lg:w-28 md:h-16 md:w-28 h-14 w-14 border-2 border-blue-500 rounded-md p-1 cursor-pointer"
             />
-          </div>
+          </div> */}
           {filterAllProducts.map((item) => (
             <div
               key={item.id}

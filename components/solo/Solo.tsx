@@ -85,7 +85,7 @@ const Solo = () => {
           setShowDiscountOnly={setShowDiscountOnly}
         />
       </div>
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 lg:gap-10 md:gap-10 place-content-center ">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 lg:gap-10 md:gap-10 lg:place-items-start md:place-items-start place-items-center">
         {filteredProducts.map((product) => (
           <div key={product.id} className="rounded-lg w-[220px]">
             <div className="flex justify-center p-5 bg-gray-100 rounded-lg">

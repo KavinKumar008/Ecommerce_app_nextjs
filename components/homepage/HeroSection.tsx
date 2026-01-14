@@ -55,7 +55,7 @@ const HeroSection = () => {
                 <p className="text-sm">Infinity One Design</p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
+            {/* <div className="flex items-center gap-3">
               <button className="bg-blue-900 mt-6 p-3 rounded-full w-36 cursor-pointer outline-0 active:scale-90">
                 <div className="flex items-center justify-center gap-3">
                   <MdAddShoppingCart className="text-white" />
@@ -65,7 +65,7 @@ const HeroSection = () => {
               <div className="border border-gray-300 rounded-full mt-5">
                 <IoEye className="w-10 h-10 p-2 text-gray-500" />
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
 

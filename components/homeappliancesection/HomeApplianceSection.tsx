@@ -4,6 +4,7 @@ import { allProductsType } from "@/types/Product";
 import Image from "next/image";
 import FilterBars from "../filterbars/FilterBars";
 import { FaRupeeSign } from "react-icons/fa";
+import { useState, useMemo } from "react";
 
 type HomeApplianceProps = {
   homeApp: allProductsType[];
@@ -12,6 +13,34 @@ type HomeApplianceProps = {
 const HomeApplianceSection = ({ homeApp }: HomeApplianceProps) => {
   const router = useRouter();
   const pathName = usePathname();
+
+  const [appliedBrands, setAppliedBrands] = useState<string[]>([]);
+  const [minimumPrice, setMinimumPrice] = useState("");
+  const [maximumPrice, setMaximumPrice] = useState("");
+  const [showDiscountOnly, setShowDiscountOnly] = useState<number | null>(null);
+
+  const filterBrandNames = [...new Set(homeApp.map((item) => item.sname))];
+
+  const filteredProducts = useMemo(() => {
+    return homeApp.filter((item) => {
+      const brandMatch =
+        appliedBrands.length === 0 || appliedBrands.includes(item.sname);
+
+      const price = Number(item.original_price);
+
+      const minMatch = minimumPrice === "" || price >= Number(minimumPrice);
+
+      const maxMatch = maximumPrice === "" || price <= Number(maximumPrice);
+
+      const discountValue = Number(item.offer.replace(/\D/g, ""));
+
+      const discountMatch =
+        showDiscountOnly === null || discountValue >= showDiscountOnly;
+      const passed = brandMatch && minMatch && maxMatch && discountMatch;
+
+      return passed;
+    });
+  }, [appliedBrands, minimumPrice, maximumPrice, showDiscountOnly]);
   return (
     <div className="lg:mt-0 md:mt-0 mt-5">
       <div className="lg:w-full md:w-full lg:p-0 md:p-0 p-5">
@@ -26,11 +55,21 @@ const HomeApplianceSection = ({ homeApp }: HomeApplianceProps) => {
       <section className="lg:pr-32 lg:pl-32 lg:p-10 md:p-8 p-5">
         <div className="flex justify-between lg:flex-row md:flex-row flex-col">
           <div className="lg:w-[25%] md:w-[35%]">
-            <FilterBars />
+            <FilterBars
+              filterBarShoes={filterBrandNames}
+              appliedBrands={appliedBrands}
+              setAppliedBrands={setAppliedBrands}
+              minimumPrice={minimumPrice}
+              setMinimumPrice={setMinimumPrice}
+              maximumPrice={maximumPrice}
+              setMaximumPrice={setMaximumPrice}
+              showDiscountOnly={showDiscountOnly}
+              setShowDiscountOnly={setShowDiscountOnly}
+            />
           </div>
 
-          <div className="grid lg:grid-cols-3 lg:place-items-end md:grid-cols-2 place-items-center md:gap-8  gap-5 lg:mt-0 md:mt-0 mt-5">
-            {homeApp.map((item) => (
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 lg:place-items-start md:place-items-start place-items-center md:gap-8  gap-5 lg:mt-0 md:mt-0 mt-5">
+            {filteredProducts.map((item) => (
               <div key={item.id} className="rounded-lg w-[220px]">
                 <div className="flex justify-center p-5 bg-gray-100 rounded-lg">
                   {item.thumbnail ? (
@@ -45,6 +84,9 @@ const HomeApplianceSection = ({ homeApp }: HomeApplianceProps) => {
                       }
                     />
                   ) : null}
+                </div>
+                <div className="text-sm font-semibold text-gray-400 mt-2">
+                  {item.sname}
                 </div>
                 <div className="flex flex-col gap-3">
                   <h1
