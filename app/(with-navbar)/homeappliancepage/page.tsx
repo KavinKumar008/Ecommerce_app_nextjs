@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import HomeApplianceSection from "@/components/homeappliancesection/HomeApplianceSection";
 import { getProductsByCategory } from "@/lib/queries/products";
 
