@@ -1,14 +1,11 @@
 import HomeApplianceSection from "@/components/homeappliancesection/HomeApplianceSection";
+import { getProductsByCategory } from "@/lib/queries/products";
 
 const page = async () => {
-  const apiURL = process.env.NEXT_PUBLIC_API_URL;
-
-  const res = await fetch(`${apiURL}/homeappliance`);
-  const data = await res.json();
-  console.log(data, "homeappliance");
+  const products = await getProductsByCategory(5);
   return (
     <div>
-      <HomeApplianceSection homeApp={data.data} />
+      <HomeApplianceSection homeApp={products} />
     </div>
   );
 };

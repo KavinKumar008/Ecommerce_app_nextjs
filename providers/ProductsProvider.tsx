@@ -10,9 +10,9 @@ type ProductContextType = {
 
 const ProductContext = createContext<ProductContextType>({ allProducts: [] });
 
+const apiURL = process.env.NEXT_PUBLIC_API_URL;
 const ProductsProvider = ({ children }: { children: React.ReactNode }) => {
   const [allProducts, setAllProducts] = useState<allProductsType[]>([]);
-  const apiURL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     const getProductsApi = async () => {
