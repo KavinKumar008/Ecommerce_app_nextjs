@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+// const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 type orderProps = {
   id: number;
@@ -22,7 +22,7 @@ const MyOrderProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const orderApi = async () => {
-      const orderRes = await fetch(`${apiUrl}/myorder`);
+      const orderRes = await fetch("api/myorder");
       const data = await orderRes.json();
 
       if (orderRes.status === 200) {

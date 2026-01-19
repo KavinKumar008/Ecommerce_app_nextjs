@@ -10,14 +10,14 @@ type ProductContextType = {
 
 const ProductContext = createContext<ProductContextType>({ allProducts: [] });
 
-const apiURL = process.env.NEXT_PUBLIC_API_URL;
+// const apiURL = process.env.NEXT_PUBLIC_API_URL;
 const ProductsProvider = ({ children }: { children: React.ReactNode }) => {
   const [allProducts, setAllProducts] = useState<allProductsType[]>([]);
 
   useEffect(() => {
     const getProductsApi = async () => {
       try {
-        const res = await fetch(`${apiURL}/allproducts`);
+        const res = await fetch("api/allproducts");
         const data = await res.json();
 
         if (res.status === 200) {

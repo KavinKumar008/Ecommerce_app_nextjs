@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+// const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const AuthContext = createContext<any>(null);
 
@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const authLoggedApi = async () => {
-      const res = await fetch(`${apiUrl}/me`);
+      const res = await fetch("api/me");
       const data = await res.json();
 
       if (res.status === 200) {
@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const logout = async () => {
-    await fetch(`${apiUrl}/logout`, { method: "POST" });
+    await fetch("api/logout", { method: "POST" });
     setIsLoggedIn(false);
   };
 

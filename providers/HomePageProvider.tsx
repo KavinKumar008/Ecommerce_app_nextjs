@@ -68,16 +68,16 @@ const HomePageProvider = ({ children }: { children: React.ReactNode }) => {
   });
 
   useEffect(() => {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    // const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-    if (!apiUrl) {
-      console.warn("NEXT_PUBLIC_API_URL is not defined");
-      return;
-    }
+    // if (!apiUrl) {
+    //   console.warn("NEXT_PUBLIC_API_URL is not defined");
+    //   return;
+    // }
 
     const homePageApis = async () => {
       try {
-        const res = await fetch(`${apiUrl}/home`);
+        const res = await fetch("api/home");
         const data = await res.json();
 
         if (res.status === 200) {

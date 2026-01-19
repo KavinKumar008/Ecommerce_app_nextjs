@@ -9,7 +9,7 @@ type CartContextType = {
   deleteCartApi: (cartItemId: number) => Promise<void>;
 };
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+// const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const cartPageContext = createContext<CartContextType | null>(null);
 
 const CartPageProvider = ({ children }: { children: React.ReactNode }) => {
@@ -18,7 +18,7 @@ const CartPageProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const res = await fetch(`${apiUrl}/cartapi/getcart`);
+        const res = await fetch("api/cartapi/getcart");
         const data = await res.json();
         console.log(res, "asldjksldjasldjalsdjk");
         if (res.status === 200) {
@@ -34,10 +34,10 @@ const CartPageProvider = ({ children }: { children: React.ReactNode }) => {
 
   const deleteCartApi = async (cartItemId: number) => {
     setCartItemGet((prev) =>
-      prev.filter((item) => item.CART_ITEM_ID !== cartItemId)
+      prev.filter((item) => item.CART_ITEM_ID !== cartItemId),
     );
     try {
-      const res = await fetch(`${apiUrl}/cartapi/deletecart`, {
+      const res = await fetch("api/cartapi/deletecart", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
