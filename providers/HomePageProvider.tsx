@@ -55,10 +55,9 @@ type HomePageContextValue = {
 };
 
 const homePageContext = createContext<HomePageContextValue | undefined>(
-  undefined
+  undefined,
 );
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const HomePageProvider = ({ children }: { children: React.ReactNode }) => {
   const [homePageData, setHomePageData] = useState<HomePageApiResponse>({
     data: [],
@@ -69,6 +68,13 @@ const HomePageProvider = ({ children }: { children: React.ReactNode }) => {
   });
 
   useEffect(() => {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+    if (!apiUrl) {
+      console.warn("NEXT_PUBLIC_API_URL is not defined");
+      return;
+    }
+
     const homePageApis = async () => {
       try {
         const res = await fetch(`${apiUrl}/home`);
