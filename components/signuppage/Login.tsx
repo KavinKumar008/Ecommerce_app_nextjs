@@ -15,7 +15,7 @@ type loginProps = {
   isValidatePass: (value: string) => boolean;
 };
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+// const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const Login = ({
   showLogin,
@@ -77,7 +77,7 @@ const Login = ({
 
     if (!validate()) return;
 
-    const res = await fetch(`${apiUrl}/login`, {
+    const res = await fetch("api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

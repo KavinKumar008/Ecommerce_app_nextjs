@@ -9,7 +9,7 @@ import { RxEyeOpen } from "react-icons/rx";
 import Login from "./Login";
 import { useRouter, useSearchParams } from "next/navigation";
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+// const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const SignUp = () => {
   const [identifier, setIdentifier] = useState({
@@ -89,7 +89,7 @@ const SignUp = () => {
 
     if (!validate()) return;
 
-    const res = await fetch(`${apiUrl}/signup`, {
+    const res = await fetch("api/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
