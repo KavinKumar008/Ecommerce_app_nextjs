@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { UseHome } from "@/providers/HomePageProvider";
 
 const HeroSection = () => {
+  console.log("askdhasjkdhakjdhakjhdja");
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const router = useRouter();
@@ -16,6 +17,7 @@ const HeroSection = () => {
   const { hero } = UseHome();
 
   const heroData = hero?.[0];
+  console.log(heroData, "herooooooooooo");
 
   useEffect(() => {
     if (!heroData?.images?.length) return;
@@ -29,7 +31,9 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, [heroData?.images?.length]);
 
-  if (!heroData || !heroData.images) return null; // Loading state
+  if (!heroData || !heroData.images || heroData.images.length === 0) {
+    return null;
+  }
 
   return (
     <main className="lg:pl-30 lg:pr-30 lg:p-10">

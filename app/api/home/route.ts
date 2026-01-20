@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(){
     try {
-        const [heroRows] = await db.query("SELECT P.id, P.sname,JSON_ARRAYAGG(PI.image_url) AS IMAGES FROM products AS P JOIN product_images AS PI ON P.id = PI.product_id WHERE P.id = 55 GROUP BY P.id,P.sname");
+        const [heroRows] = await db.query("SELECT P.id, P.sname,JSON_ARRAYAGG(PI.image_url) AS images FROM products AS P JOIN product_images AS PI ON P.id = PI.product_id WHERE P.id = 55 GROUP BY P.id,P.sname");
         
         const [products] = await db.query(`
   SELECT id,thumbnail,catalog,category_id FROM products WHERE is_products = 1
