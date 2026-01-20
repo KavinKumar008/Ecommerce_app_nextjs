@@ -18,11 +18,11 @@ const HeroSection = () => {
   const heroData = hero?.[0];
 
   useEffect(() => {
-    if (!heroData?.IMAGES.length) return;
+    if (!heroData?.images.length) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
-        prevIndex === heroData.IMAGES.length - 1 ? 0 : prevIndex + 1,
+        prevIndex === heroData.images.length - 1 ? 0 : prevIndex + 1,
       );
     }, 3000);
 
@@ -39,7 +39,7 @@ const HeroSection = () => {
           <div>
             <div className="flex flex-col gap-3">
               <h1 className="lg:text-5xl lg:font-bold md:font-bold lg:leading-14 md:text-2xl text-2xl font-bold">
-                {heroData.SNAME}
+                {heroData.sname}
               </h1>
               <p className="lg:font-bold md:font-bold font-semibold">
                 55'' Neo QLED 8K QN700B
@@ -72,16 +72,16 @@ const HeroSection = () => {
         <section className="flex flex-col items-center justify-center gap-10">
           <div>
             <Image
-              src={heroData.IMAGES[currentIndex]}
+              src={heroData.images[currentIndex]}
               height={100}
               width={100}
               alt="samsungtv"
               className="lg:w-[500px] lg:h-92 md:w-[500px] md:h-92 w-[300px] cursor-pointer active:scale-90 transition duration-500"
-              onClick={() => router.push(`productdetailspage/${heroData.ID}`)}
+              onClick={() => router.push(`productdetailspage/${heroData.id}`)}
             />
           </div>
           <div className="flex justify-center gap-3">
-            {heroData.IMAGES.map((_, idx) => (
+            {heroData.images.map((_, idx) => (
               <button
                 key={idx}
                 className={`lg:w-24 lg:h-1 md:w-24 md:h-1 w-16 h-1 rounded-full cursor-pointer ${

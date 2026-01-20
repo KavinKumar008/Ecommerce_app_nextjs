@@ -3,21 +3,21 @@ import { NextResponse } from "next/server";
 
 export async function GET(){
     try {
-        const [heroRows] = await db.query("SELECT P.ID, P.SNAME,JSON_ARRAYAGG(PI.IMAGE_URL) AS IMAGES FROM PRODUCTS AS P JOIN PRODUCT_IMAGES AS PI ON P.ID = PI.PRODUCT_ID WHERE P.ID = 55 GROUP BY P.ID,P.SNAME");
+        const [heroRows] = await db.query("SELECT P.id, P.sname,JSON_ARRAYAGG(PI.image_url) AS IMAGES FROM products AS P JOIN product_images AS PI ON P.id = PI.product_id WHERE P.id = 55 GROUP BY P.id,P.sname");
         
         const [products] = await db.query(`
-  SELECT ID,THUMBNAIL,CATALOG,CATEGORY_ID FROM PRODUCTS WHERE IS_PRODUCTS = 1
+  SELECT id,thumbnail,catalog,category_id FROM products WHERE is_products = 1
 `);
 
 const [promotions] = await db.query(`
-  SELECT ID,THUMBNAIL,OFFER,SNAME,TYPE,FEATURES FROM PRODUCTS WHERE IS_PROMOTIONS = 1
+  SELECT id,thumbnail,offer,sname,type,features FROM products WHERE is_promotions = 1
 `);
 
 const [popular] = await db.query(`
-  SELECT THUMBNAIL,CATALOG,ID,CATEGORY_ID FROM PRODUCTS WHERE IS_POPULAR_CATEGORIES = 1
+  SELECT thumbnail,catalog,id,category_id FROM products WHERE is_popular_categories = 1
 `);
 
-const [popularProducts] = await db.query(`SELECT ID,THUMBNAIL,BRAND_NAME,OFFER_PRICE FROM PRODUCTS WHERE IS_POPULAR_PRODUCT = 1`)
+const [popularProducts] = await db.query(`SELECT id,thumbnail,brand_name,offer_price FROM products WHERE is_popular_product = 1`)
 
             return NextResponse.json({data:heroRows,products,promotions,popular,popularProducts},{status:200});
     } catch (error) {

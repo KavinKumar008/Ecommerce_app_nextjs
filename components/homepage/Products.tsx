@@ -14,18 +14,18 @@ const Products = () => {
       <div className="lg:pl-32 lg:pr-32 lg:p-12 md:p-6 lg:flex md:flex justify-evenly lg:gap-10 md:gap-10 gap-6 grid grid-rows-2 grid-cols-3 place-items-center">
         {products.map((product) => (
           <div
+            key={product.id}
             className="lg:flex lg:flex-col lg:items-center md:flex md:flex-col md:items-center grid place-items-center gap-4"
-            key={product.ID}
           >
             <Image
-              src={product.THUMBNAIL}
+              src={product.thumbnail}
               alt="AppleMobile"
               width={48}
               height={48}
               className="w-12 h-16 cursor-pointer active:scale-110 transition duration-300"
-              onClick={() => router.push(`solopage/${product.CATEGORY_ID}`)}
+              onClick={() => router.push(`solopage/${product.category_id}`)}
             />
-            <p className="text-[12px] font-semibold">{product.CATALOG}</p>
+            <p className="text-[12px] font-semibold">{product.catalog}</p>
           </div>
         ))}
       </div>

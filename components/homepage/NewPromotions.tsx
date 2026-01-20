@@ -11,9 +11,9 @@ const NewPromotions = () => {
 
   const { promotions } = UseHome();
 
-  const bigCard = promotions.filter((item) => item.TYPE === "bigCard");
-  const smallCard = promotions.filter((item) => item.TYPE === "small");
-  const tallCard = promotions.filter((item) => item.TYPE === "tall");
+  const bigCard = promotions.filter((item) => item.type === "bigCard");
+  const smallCard = promotions.filter((item) => item.type === "small");
+  const tallCard = promotions.filter((item) => item.type === "tall");
 
   // console.log(bigCard, smallCard, tallCard, "sdkjsdjsdjsl");
   return (
@@ -50,16 +50,16 @@ const NewPromotions = () => {
             <div className="p-5">
               {bigCard.map((product) => (
                 <div
-                  key={product.ID}
+                  key={product.id}
                   className="lg:flex md:flex flex items-center gap-8"
                 >
                   <div className="flex flex-col justify-evenly md:justify-between lg:gap-5 md:gap-5 gap-2">
                     <div className="bg-orange-400 text-white p-1 w-28 text-center rounded-md font-semibold">
-                      {product.OFFER}
+                      {product.offer}
                     </div>
                     <div>
                       <h1 className="lg:text-2xl md:text-lg w-38 font-bold">
-                        {product.SNAME}
+                        {product.sname}
                       </h1>
                       {/* <div className="lg:text-sm md:text-sm text-[12px] text-blue-800 flex items-center gap-1 cursor-pointer font-semibold">
                         <span>{product.btn}</span>
@@ -68,19 +68,19 @@ const NewPromotions = () => {
                     </div>
                     <div className="space-y-2">
                       {/* <p className="text-sm font-semibold">{product.power}</p> */}
-                      <p className="text-[12px]">{product.FEATURES}</p>
+                      <p className="text-[12px]">{product.features}</p>
                       <p></p>
                     </div>
                   </div>
                   <div>
                     <Image
-                      src={product.THUMBNAIL}
+                      src={product.thumbnail}
                       width={100}
                       height={100}
                       alt="brandimage"
                       className="lg:w-92 lg:h-62 md:w-80 md:h-56 cursor-pointer active:scale-125 transition duration-300"
                       onClick={() =>
-                        router.push(`productdetailspage/${product.ID}`)
+                        router.push(`productdetailspage/${product.id}`)
                       }
                     />
                   </div>
@@ -90,31 +90,31 @@ const NewPromotions = () => {
             <div className="grid grid-cols-2 lg:gap-5 md:gap-5 gap-2 md:mt-12">
               {smallCard.map((smallproduct) => (
                 <div
-                  key={smallproduct.ID}
+                  key={smallproduct.id}
                   className="flex items-center lg:gap-7 md:gap-5 gap-3 lg:p-5 md:p-5 p-2 bg-gray-100 rounded-md"
                 >
                   <div className="flex flex-col gap-4 w-28">
                     <p className="lg:text-sm md:text-sm text-[11px] text-gray-500">
-                      {smallproduct.SNAME}
+                      {smallproduct.sname}
                     </p>
                     <p className="lg:text-md md:text-[12px] text-[11px] font-bold">
-                      {smallproduct.FEATURES}
+                      {smallproduct.features}
                     </p>
                     <div className="bg-gray-300 p-1 rounded-md w-16 text-center">
                       <p className="text-green-600 text-[11px] font-semibold">
-                        {smallproduct.OFFER}
+                        {smallproduct.offer}
                       </p>
                     </div>
                   </div>
                   <div>
                     <Image
-                      src={smallproduct.THUMBNAIL}
+                      src={smallproduct.thumbnail}
                       width={100}
                       height={100}
                       alt="brandimage"
                       className="w-36 h-24 cursor-pointer active:scale-125 transition duration-300"
                       onClick={() =>
-                        router.push(`productdetailspage/${smallproduct.ID}`)
+                        router.push(`productdetailspage/${smallproduct.id}`)
                       }
                     />
                   </div>
@@ -127,31 +127,31 @@ const NewPromotions = () => {
             <div className="flex flex-col gap-8">
               {tallCard.map((tallproduct) => (
                 <div
-                  key={tallproduct.ID}
+                  key={tallproduct.id}
                   className="bg-gray-200 p-5 lg:h-56 flex items-center flex-col gap-4 rounded-md"
                 >
                   <div className="">
                     <Image
-                      src={tallproduct.THUMBNAIL}
+                      src={tallproduct.thumbnail}
                       width={100}
                       height={100}
                       alt="brandimage"
                       className="lg:w-42 lg:h-36 md:w-32 md:h-24 cursor-pointer active:scale-125 transition duration-300"
                       onClick={() =>
-                        router.push(`productdetailspage/${tallproduct.ID}`)
+                        router.push(`productdetailspage/${tallproduct.id}`)
                       }
                     />
                   </div>
                   <div className="lg:flex lg:flex-row md:flex md:flex-col md:items-center md:gap-1 lg:gap-3 flex gap-4 items-center">
                     <p className="text-[11px] text-gray-500">
-                      {tallproduct.SNAME}
+                      {tallproduct.sname}
                     </p>
                     <p className="lg:text-sm md:text-[12px] font-semibold">
-                      {tallproduct.FEATURES}
+                      {tallproduct.features}
                     </p>
                     <div className="bg-gray-300 p-1 rounded-md">
                       <p className="text-green-600 lg:text-[11px] md:text-[9px] font-semibold">
-                        {tallproduct.OFFER}
+                        {tallproduct.offer}
                       </p>
                     </div>
                   </div>

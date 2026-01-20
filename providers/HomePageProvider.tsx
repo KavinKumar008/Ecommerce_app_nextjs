@@ -3,39 +3,39 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 type HeroData = {
-  ID: number;
-  IMAGES: string[];
-  SNAME: string;
+  id: number;
+  images: string[];
+  sname: string;
 };
 
 type PopularProduct = {
-  CATALOG: string;
-  CATEGORY_ID: number;
-  ID: number;
-  THUMBNAIL: string;
+  catalog: string;
+  category_id: number;
+  id: number;
+  thumbnail: string;
 };
 
 type Product = {
-  CATALOG: string;
-  CATEGORY_ID: number;
-  ID: number;
-  THUMBNAIL: string;
+  catalog: string;
+  category_id: number;
+  id: number;
+  thumbnail: string;
 };
 
 type Promotion = {
-  FEATURES: string;
-  ID: number;
-  OFFER: string;
-  SNAME: string;
-  THUMBNAIL: string;
-  TYPE: string;
+  features: string;
+  id: number;
+  offer: string;
+  sname: string;
+  thumbnail: string;
+  type: string;
 };
 
 type PopularProducts = {
-  ID: number;
-  THUMBNAIL: string;
-  BRAND_NAME: string;
-  OFFER_PRICE: string;
+  id: number;
+  thumbnail: string;
+  brand_name: string;
+  offer_price: string;
 };
 
 type HomePageApiResponse = {

@@ -19,24 +19,24 @@ const PopularProducts = () => {
         <div className="lg:flex md:flex lg:justify-between md:justify-between mt-10">
           {popularProducts.map((products) => (
             <div
-              key={products.ID}
+              key={products.id}
               className="lg:w-56 md:w-38 h-auto flex flex-col  gap-3"
             >
               <div className="flex items-center justify-center bg-gray-100 p-4 rounded-lg">
-                {products.THUMBNAIL ? (
+                {products.thumbnail ? (
                   <img
-                    src={products.THUMBNAIL}
+                    src={products.thumbnail}
                     alt="brandImage"
                     className="h-64 w-92 lg:mt-0 md:mt-0 mt-10 cursor-pointer active:scale-125 transition duration-300"
                     onClick={() =>
-                      router.push(`/productdetailspage/${products.ID}`)
+                      router.push(`/productdetailspage/${products.id}`)
                     }
                   />
                 ) : null}
               </div>
               <div>
                 <p className="lg:text-sm md:text-[12px] font-semibold line-clamp-2 text-center">
-                  {products.BRAND_NAME}
+                  {products.brand_name}
                 </p>
               </div>
               <div className="flex justify-between items-center">
@@ -50,7 +50,7 @@ const PopularProducts = () => {
                 </div> */}
                 <p className="lg:text-[13px] md:text-[11px] font-extrabold flex items-center justify-center">
                   <FaRupeeSign />
-                  {products.OFFER_PRICE}
+                  {products.offer_price}
                 </p>
               </div>
             </div>
