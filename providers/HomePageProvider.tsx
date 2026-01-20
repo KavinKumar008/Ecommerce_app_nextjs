@@ -77,7 +77,7 @@ const HomePageProvider = ({ children }: { children: React.ReactNode }) => {
 
     const homePageApis = async () => {
       try {
-        const res = await fetch("api/home");
+        const res = await fetch("/api/home");
         const data = await res.json();
 
         if (res.status === 200) {

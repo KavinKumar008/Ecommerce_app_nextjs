@@ -20,7 +20,7 @@ const ProductsProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const getProductsApi = async () => {
       try {
-        const res = await fetch("api/allproducts");
+        const res = await fetch("/api/allproducts");
         const data = await res.json();
 
         if (res.status === 200) {

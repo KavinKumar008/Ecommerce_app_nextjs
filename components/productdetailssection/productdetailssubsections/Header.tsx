@@ -47,7 +47,7 @@ const Header = ({ filterAllProducts }: HeaderProps) => {
       }
 
       toast.success("Item Added to Cart");
-      const res = await fetch("api/cartapi", {
+      const res = await fetch("/api/cartapi", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

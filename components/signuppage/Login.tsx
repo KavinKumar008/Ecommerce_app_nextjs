@@ -77,7 +77,7 @@ const Login = ({
 
     if (!validate()) return;
 
-    const res = await fetch("api/login", {
+    const res = await fetch("/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

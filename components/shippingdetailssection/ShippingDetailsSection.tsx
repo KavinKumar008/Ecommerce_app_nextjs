@@ -115,7 +115,7 @@ const ShippingDetailsSection = () => {
       return false;
     }
 
-    const orderRes = await fetch("api/create-order", {
+    const orderRes = await fetch("/api/create-order", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

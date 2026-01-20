@@ -18,7 +18,7 @@ const CartPageProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const res = await fetch("api/cartapi/getcart");
+        const res = await fetch("/api/cartapi/getcart");
         const data = await res.json();
         console.log(res, "asldjksldjasldjalsdjk");
         if (res.status === 200) {
@@ -37,7 +37,7 @@ const CartPageProvider = ({ children }: { children: React.ReactNode }) => {
       prev.filter((item) => item.cart_item_id !== cartItemId),
     );
     try {
-      const res = await fetch("api/cartapi/deletecart", {
+      const res = await fetch("/api/cartapi/deletecart", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

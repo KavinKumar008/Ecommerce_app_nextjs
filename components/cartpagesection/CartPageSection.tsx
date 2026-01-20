@@ -32,7 +32,7 @@ const CartPageSection = () => {
           : item,
       ),
     );
-    await fetch("api/cartapi/increase", {
+    await fetch("/api/cartapi/increase", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +52,7 @@ const CartPageSection = () => {
           : item,
       ),
     );
-    await fetch("api/cartapi/decrease", {
+    await fetch("/api/cartapi/decrease", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

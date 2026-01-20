@@ -59,7 +59,7 @@ const OrderSummaryCard = ({ currentPage, handleSubmit }: OrderSummaryProps) => {
       handler: async function (response: any) {
         console.log(response, "razorpayresponseeeeee");
         // verify payment
-        const verifyRes = await fetch("api/verify-payment", {
+        const verifyRes = await fetch("/api/verify-payment", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const authLoggedApi = async () => {
-      const res = await fetch("api/me");
+      const res = await fetch("/api/me");
       const data = await res.json();
 
       if (res.status === 200) {
@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const logout = async () => {
-    await fetch("api/logout", { method: "POST" });
+    await fetch("/api/logout", { method: "POST" });
     setIsLoggedIn(false);
   };
 

@@ -22,7 +22,12 @@ const MyOrderProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const orderApi = async () => {
-      const orderRes = await fetch("api/myorder");
+      const orderRes = await fetch("/api/myorder");
+
+      if (!orderRes.ok) {
+        console.error("Order API failed:", orderRes.status);
+        return;
+      }
       const data = await orderRes.json();
 
       if (orderRes.status === 200) {
