@@ -18,7 +18,7 @@ const HeroSection = () => {
   const heroData = hero?.[0];
 
   useEffect(() => {
-    if (!heroData?.images.length) return;
+    if (!heroData?.images?.length) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
@@ -27,9 +27,9 @@ const HeroSection = () => {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [heroData]);
+  }, [heroData?.images?.length]);
 
-  if (!heroData) return null; // Loading state
+  if (!heroData || !heroData.images) return null; // Loading state
 
   return (
     <main className="lg:pl-30 lg:pr-30 lg:p-10">
