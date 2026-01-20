@@ -26,7 +26,7 @@ const DropDown = ({
 
   const totalPrice = cartItemGet.reduce(
     (acc, currentItem) =>
-      acc + Number(currentItem.PRICE) * currentItem.QUANTITY,
+      acc + Number(currentItem.price) * currentItem.quantity,
     0,
   );
 
@@ -82,36 +82,36 @@ const DropDown = ({
               </div>
               <div className="mt-3 flex flex-col gap-5 p-3">
                 {cartItemGet.slice(0, 2).map((item) => (
-                  <div className="flex gap-3" key={item.CART_ITEM_ID}>
+                  <div className="flex gap-3" key={item.cart_item_id}>
                     <Image
-                      src={item.THUMBNAIL}
+                      src={item.thumbnail}
                       alt="brandimage"
                       width={10}
                       height={10}
                       className="w-10 h-10 cursor-pointer"
                       onClick={() =>
-                        router.push(`/productdetailspage/${item.PRODUCT_ID}`)
+                        router.push(`/productdetailspage/${item.product_id}`)
                       }
                     />
                     <div className="flex flex-col">
                       <p
                         className="text-[11px] font-semibold line-clamp-2"
-                        title={item.BRAND_NAME}
+                        title={item.brand_name}
                       >
-                        {item.BRAND_NAME}
+                        {item.brand_name}
                       </p>
                       <p className="text-gray-500 text-[11px]">
-                        {item.QUANTITY} item
+                        {item.quantity} item
                       </p>
                     </div>
                     <div className="space-y-3 flex flex-col items-end">
                       <MdDelete
                         className="cursor-pointer text-gray-500"
-                        onClick={() => deleteCartApi(item.CART_ITEM_ID)}
+                        onClick={() => deleteCartApi(item.cart_item_id)}
                       />
                       <p className="text-sm font-semibold flex items-center">
                         <FaRupeeSign className="text-sm" />
-                        {(Number(item.PRICE) * item.QUANTITY).toLocaleString()}
+                        {(Number(item.price) * item.quantity).toLocaleString()}
                       </p>
                     </div>
                   </div>

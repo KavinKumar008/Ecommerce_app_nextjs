@@ -28,7 +28,7 @@ const OrderSummaryCard = ({ currentPage, handleSubmit }: OrderSummaryProps) => {
 
   const totalPrice = cartItemGet.reduce(
     (acc, currentItem) =>
-      acc + Number(currentItem.PRICE) * currentItem.QUANTITY,
+      acc + Number(currentItem.price) * currentItem.quantity,
     0,
   );
 

@@ -1,10 +1,10 @@
 export type cartApiProps = {
-  CART_ID:number;
-  CART_ITEM_ID: number;
-  QUANTITY: number;
-  PRICE: string;
-  BRAND_NAME: string;
-  THUMBNAIL: string;
-  PRODUCT_ID: number;
-  TOTAL_PRICE: string
+  cart_id:number;
+  cart_item_id: number;
+  quantity: number;
+  price: string;
+  brand_name: string;
+  thumbnail: string;
+  product_id: number;
+  total_price: string
 };

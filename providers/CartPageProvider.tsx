@@ -34,7 +34,7 @@ const CartPageProvider = ({ children }: { children: React.ReactNode }) => {
 
   const deleteCartApi = async (cartItemId: number) => {
     setCartItemGet((prev) =>
-      prev.filter((item) => item.CART_ITEM_ID !== cartItemId),
+      prev.filter((item) => item.cart_item_id !== cartItemId),
     );
     try {
       const res = await fetch("api/cartapi/deletecart", {

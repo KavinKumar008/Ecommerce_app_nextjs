@@ -27,8 +27,8 @@ const CartPageSection = () => {
   const increaseQty = async (cartItemId: number) => {
     setCartItemGet((prev) =>
       prev.map((item) =>
-        item.CART_ITEM_ID === cartItemId
-          ? { ...item, QUANTITY: item.QUANTITY + 1 }
+        item.cart_item_id === cartItemId
+          ? { ...item, quantity: item.quantity + 1 }
           : item,
       ),
     );
@@ -42,13 +42,13 @@ const CartPageSection = () => {
   };
 
   const decreaseQty = async (cartItemId: number) => {
-    const item = cartItemGet.find((i) => i.CART_ITEM_ID === cartItemId);
+    const item = cartItemGet.find((i) => i.cart_item_id === cartItemId);
 
-    if (!item || item.QUANTITY === 1) return;
+    if (!item || item.quantity === 1) return;
     setCartItemGet((prev) =>
       prev.map((item) =>
-        item.CART_ITEM_ID === cartItemId && item.QUANTITY > 1
-          ? { ...item, QUANTITY: item.QUANTITY - 1 }
+        item.cart_item_id === cartItemId && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
           : item,
       ),
     );
@@ -92,20 +92,20 @@ const CartPageSection = () => {
           <div className="">
             <div>
               {cartItemGet.map((product) => (
-                <div key={product.CART_ITEM_ID}>
+                <div key={product.cart_item_id}>
                   <div className="flex items-center justify-between mt-5">
                     <div className="flex flex-col items-start gap-2 w-[50%]">
                       <div className="flex gap-5">
                         <div className="bg-gray-50 p-3 rounded-md">
                           <Image
-                            src={product.THUMBNAIL}
+                            src={product.thumbnail}
                             alt="brandimage"
                             width={100}
                             height={100}
                             className="lg:w-28 lg:h-16 md:w-44 md:h-16 w-36 h-10 cursor-pointer active:sacle-90 transition duration-200"
                             onClick={() =>
                               router.push(
-                                `/productdetailspage/${product.PRODUCT_ID}`,
+                                `/productdetailspage/${product.product_id}`,
                               )
                             }
                           />
@@ -113,9 +113,9 @@ const CartPageSection = () => {
                         <div className="flex flex-col justify-center items-start">
                           <p
                             className="lg:text-sm md:text-[12px] text-[11px] font-semibold line-clamp-2"
-                            title={product.BRAND_NAME}
+                            title={product.brand_name}
                           >
-                            {product.BRAND_NAME}
+                            {product.brand_name}
                           </p>
                           <p className="text-gray-400 lg:text-sm md:text-sm text-[11px]">
                             Color:Gray
@@ -129,7 +129,7 @@ const CartPageSection = () => {
                         </button> */}
                         <button
                           className="flex items-center gap-2 text-gray-500 cursor-pointer active:scale-90 transition"
-                          onClick={() => deleteCartApi(product.CART_ITEM_ID)}
+                          onClick={() => deleteCartApi(product.cart_item_id)}
                         >
                           <MdDelete />
                           <p className="text-sm lg:font-medium md:font-medium font-bold">
@@ -141,20 +141,20 @@ const CartPageSection = () => {
                     <div className="flex items-center justify-around lg:gap-7 md:gap-7 gap-5 border border-gray-500 rounded-full lg:w-36 lg:h-12 md:w-28 md:h-10 w-26 h-8">
                       <FaMinus
                         className="cursor-pointer text-gray-500 active:scale-90"
-                        onClick={() => decreaseQty(product.CART_ITEM_ID)}
+                        onClick={() => decreaseQty(product.cart_item_id)}
                       />
                       <p className="font-bold lg:text-base md:text-base text-sm">
-                        {product.QUANTITY}
+                        {product.quantity}
                       </p>
                       <FaPlus
                         className="cursor-pointer text-gray-500 active:scale-90"
-                        onClick={() => increaseQty(product.CART_ITEM_ID)}
+                        onClick={() => increaseQty(product.cart_item_id)}
                       />
                     </div>
                     <div className="font-extrabold lg:text-sm md:text-sm text-[11px] flex items-center">
                       <FaRupeeSign />
                       {(
-                        product.QUANTITY * Number(product.PRICE)
+                        product.quantity * Number(product.price)
                       ).toLocaleString()}
                       .00
                     </div>

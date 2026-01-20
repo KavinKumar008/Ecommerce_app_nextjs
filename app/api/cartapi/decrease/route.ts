@@ -5,7 +5,7 @@ export async function PATCH(request:Request){
     try {
 
         const {cartItemId} = await request.json();
-        const [decreaseRow] = await db.query("UPDATE CART_ITEMS SET QUANTITY = QUANTITY - 1, TOTAL_PRICE = PRICE * QUANTITY WHERE ID = ? AND QUANTITY > 1",[cartItemId])
+        const [decreaseRow] = await db.query("UPDATE cart_items SET quantity = quantity - 1, total_price = price * quantity WHERE id = ? AND quantity > 1",[cartItemId])
 
         return NextResponse.json({data:decreaseRow,res:"successfully decreased the quantitiy"},{status:200});
     } catch (error) {

@@ -122,7 +122,7 @@ const ShippingDetailsSection = () => {
       },
       body: JSON.stringify({
         form: { ...formData },
-        cartId: cartItemGet[0].CART_ID,
+        cartId: cartItemGet[0].cart_id,
       }),
     });
 

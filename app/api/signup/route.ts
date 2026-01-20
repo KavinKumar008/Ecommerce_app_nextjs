@@ -13,7 +13,7 @@ export async function POST(request:Request){
         return NextResponse.json({error:"Email or Mobile no required"},{status:400});
       }
 
-      const [existing] : any  = await db.query("SELECT ID FROM USERS WHERE EMAIL = ? OR MOBILE_NO = ? ",[identifier,identifier]);
+      const [existing] : any  = await db.query("SELECT id FROM users WHERE email = ? OR mobile_no = ? ",[identifier,identifier]);
 
       if(existing.length > 0){
         return NextResponse.json({error:"User Already Exist"},{status:409});
@@ -21,7 +21,7 @@ export async function POST(request:Request){
 
       const hashedPassword = await bcrypt.hash(pass,10);
 
-        const [result] : any = await db.query("INSERT INTO USERS (NAME,EMAIL,MOBILE_NO,PASSWORD) VALUES (?, ?, ?, ?)",[name,identifier,identifier,hashedPassword]);
+        const [result] : any = await db.query("INSERT INTO users (name,email,mobile_no,password) VALUES (?, ?, ?, ?)",[name,identifier,identifier,hashedPassword]);
 
         // 5️⃣ OPTIONAL: Auto-login after signup
     const token = signToken({ userId: result.insertId });
