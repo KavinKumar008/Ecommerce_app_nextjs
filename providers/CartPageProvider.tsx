@@ -59,11 +59,11 @@ const CartPageProvider = ({ children }: { children: React.ReactNode }) => {
 
 export default CartPageProvider;
 
-export const useCart = (): CartContextType => {
+export const UseCart = (): CartContextType => {
   const context = useContext(cartPageContext);
 
   if (!context) {
-    throw new Error("useCart must be used within CartPageProvider");
+    throw new Error("UseCart must be used within CartPageProvider");
   }
 
   return context;

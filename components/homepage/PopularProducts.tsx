@@ -1,6 +1,6 @@
 "use client";
 
-import { useHome } from "@/providers/HomePageProvider";
+import { UseHome } from "@/providers/HomePageProvider";
 import BorderLine from "../borderline/BorderLine";
 import { useRouter } from "next/navigation";
 import { FaRupeeSign } from "react-icons/fa";
@@ -8,7 +8,7 @@ import { FaRupeeSign } from "react-icons/fa";
 const PopularProducts = () => {
   const router = useRouter();
 
-  const { popularProducts } = useHome();
+  const { popularProducts } = UseHome();
 
   return (
     <>

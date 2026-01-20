@@ -1,12 +1,12 @@
 "use client";
-import { useHome } from "@/providers/HomePageProvider";
+import { UseHome } from "@/providers/HomePageProvider";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const PopularCategories = () => {
   const router = useRouter();
 
-  const { popularCategories } = useHome();
+  const { popularCategories } = UseHome();
 
   return (
     <section className="lg:pl-28 lg:pr-28 lg:p-10 md:p-8 p-8">

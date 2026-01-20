@@ -12,14 +12,14 @@ import CheckOutFlow from "../checkoutflow/CheckOutFlow";
 import { FaRupeeSign } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
-import { useCart } from "@/providers/CartPageProvider";
+import { UseCart } from "@/providers/CartPageProvider";
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+// const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const CartPageSection = () => {
   const router = useRouter();
   const cartPathName = usePathname();
-  const { cartItemGet, setCartItemGet, deleteCartApi } = useCart();
+  const { cartItemGet, setCartItemGet, deleteCartApi } = UseCart();
 
   const pageName =
     cartPathName.slice(1).charAt(0).toUpperCase() + cartPathName.slice(2, 5);
@@ -29,10 +29,10 @@ const CartPageSection = () => {
       prev.map((item) =>
         item.CART_ITEM_ID === cartItemId
           ? { ...item, QUANTITY: item.QUANTITY + 1 }
-          : item
-      )
+          : item,
+      ),
     );
-    await fetch(`${apiUrl}/cartapi/increase`, {
+    await fetch("api/cartapi/increase", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -49,10 +49,10 @@ const CartPageSection = () => {
       prev.map((item) =>
         item.CART_ITEM_ID === cartItemId && item.QUANTITY > 1
           ? { ...item, QUANTITY: item.QUANTITY - 1 }
-          : item
-      )
+          : item,
+      ),
     );
-    await fetch(`${apiUrl}/cartapi/decrease`, {
+    await fetch("api/cartapi/decrease", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -105,7 +105,7 @@ const CartPageSection = () => {
                             className="lg:w-28 lg:h-16 md:w-44 md:h-16 w-36 h-10 cursor-pointer active:sacle-90 transition duration-200"
                             onClick={() =>
                               router.push(
-                                `/productdetailspage/${product.PRODUCT_ID}`
+                                `/productdetailspage/${product.PRODUCT_ID}`,
                               )
                             }
                           />

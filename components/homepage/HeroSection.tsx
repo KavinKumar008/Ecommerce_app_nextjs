@@ -1,19 +1,19 @@
 "use client";
 
-import { MdAddShoppingCart } from "react-icons/md";
-import { IoEye } from "react-icons/io5";
+// import { MdAddShoppingCart } from "react-icons/md";
+// import { IoEye } from "react-icons/io5";
 import { TiTick } from "react-icons/ti";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useHome } from "@/providers/HomePageProvider";
+import { UseHome } from "@/providers/HomePageProvider";
 
 const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const router = useRouter();
 
-  const { hero } = useHome();
+  const { hero } = UseHome();
 
   const heroData = hero?.[0];
 
@@ -22,7 +22,7 @@ const HeroSection = () => {
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
-        prevIndex === heroData.IMAGES.length - 1 ? 0 : prevIndex + 1
+        prevIndex === heroData.IMAGES.length - 1 ? 0 : prevIndex + 1,
       );
     }, 3000);
 

@@ -1,13 +1,13 @@
 "use client";
 
-import { useHome } from "@/providers/HomePageProvider";
+import { UseHome } from "@/providers/HomePageProvider";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const Products = () => {
   const router = useRouter();
 
-  const { products } = useHome();
+  const { products } = UseHome();
 
   return (
     <>

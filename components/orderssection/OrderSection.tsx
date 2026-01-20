@@ -1,14 +1,14 @@
 "use client";
 
-import { useAuth } from "@/providers/AuthProvider";
-import { useOrder } from "@/providers/MyOrderProvider";
+import { UseAuth } from "@/providers/AuthProvider";
+import { UseOrder } from "@/providers/MyOrderProvider";
 import Image from "next/image";
 import { FaRupeeSign } from "react-icons/fa";
 
 const OrderSection = () => {
-  const { orderData } = useOrder();
+  const { orderData } = UseOrder();
 
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn } = UseAuth();
 
   // if (orderData) {
   //   return (

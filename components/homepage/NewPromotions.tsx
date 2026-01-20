@@ -4,12 +4,12 @@ import Image from "next/image";
 // import { MdNavigateNext } from "react-icons/md";
 import BorderLine from "../borderline/BorderLine";
 import { useRouter } from "next/navigation";
-import { useHome } from "@/providers/HomePageProvider";
+import { UseHome } from "@/providers/HomePageProvider";
 
 const NewPromotions = () => {
   const router = useRouter();
 
-  const { promotions } = useHome();
+  const { promotions } = UseHome();
 
   const bigCard = promotions.filter((item) => item.TYPE === "bigCard");
   const smallCard = promotions.filter((item) => item.TYPE === "small");

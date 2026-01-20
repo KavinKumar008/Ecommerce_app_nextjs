@@ -68,10 +68,10 @@ const HomePageProvider = ({ children }: { children: React.ReactNode }) => {
   });
 
   useEffect(() => {
-    // const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    // const apiUrl = process.env.NEXT_PUBLIC_RAILWAY_API_URL;
 
     // if (!apiUrl) {
-    //   console.warn("NEXT_PUBLIC_API_URL is not defined");
+    //   console.warn("NEXT_PUBLIC_RAILWAY_API_URL is not defined");
     //   return;
     // }
 
@@ -122,11 +122,11 @@ const HomePageProvider = ({ children }: { children: React.ReactNode }) => {
 
 export default HomePageProvider;
 
-export const useHome = () => {
+export const UseHome = () => {
   const context = useContext(homePageContext);
 
   if (!context) {
-    throw new Error("useHome must be used within a HomePageProvider");
+    throw new Error("UseHome must be used within a HomePageProvider");
   }
 
   return context;

@@ -5,12 +5,12 @@ import { CiLock } from "react-icons/ci";
 import { IoChevronDown } from "react-icons/io5";
 import { MdOutlineDiscount } from "react-icons/md";
 import { FaRupeeSign } from "react-icons/fa";
-import { useCart } from "@/providers/CartPageProvider";
+import { UseCart } from "@/providers/CartPageProvider";
 import { loadRazorpay } from "@/utils/loadRazorpay";
 import { toast } from "react-toastify";
 import { useRazorOrder } from "@/providers/OrderProvider";
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+// const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 type OrderSummaryProps = {
   currentPage: string;
@@ -20,7 +20,7 @@ type OrderSummaryProps = {
 const OrderSummaryCard = ({ currentPage, handleSubmit }: OrderSummaryProps) => {
   const router = useRouter();
 
-  const { cartItemGet } = useCart();
+  const { cartItemGet } = UseCart();
 
   const { order } = useRazorOrder();
 
@@ -29,7 +29,7 @@ const OrderSummaryCard = ({ currentPage, handleSubmit }: OrderSummaryProps) => {
   const totalPrice = cartItemGet.reduce(
     (acc, currentItem) =>
       acc + Number(currentItem.PRICE) * currentItem.QUANTITY,
-    0
+    0,
   );
 
   const handlePayment = async () => {
@@ -59,7 +59,7 @@ const OrderSummaryCard = ({ currentPage, handleSubmit }: OrderSummaryProps) => {
       handler: async function (response: any) {
         console.log(response, "razorpayresponseeeeee");
         // verify payment
-        const verifyRes = await fetch(`${apiUrl}/verify-payment`, {
+        const verifyRes = await fetch("api/verify-payment", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

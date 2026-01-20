@@ -42,11 +42,11 @@ const MyOrderProvider = ({ children }: { children: React.ReactNode }) => {
 
 export default MyOrderProvider;
 
-export const useOrder = () => {
+export const UseOrder = () => {
   const order = useContext(OrderContext);
 
   if (!order) {
-    throw new Error("useorder must be use with myorderprovider");
+    throw new Error("Useorder must be use with myorderprovider");
   }
 
   return order;

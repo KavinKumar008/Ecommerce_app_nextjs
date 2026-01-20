@@ -4,13 +4,13 @@ import Image from "next/image";
 import ecom from "@/public/Ecommerce checkout laptop-pana.png";
 import { useRouter } from "next/navigation";
 import { MdLogout } from "react-icons/md";
-import { useAuth } from "@/providers/AuthProvider";
+import { UseAuth } from "@/providers/AuthProvider";
 import { useEffect, useRef, useState } from "react";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { CldUploadWidget } from "next-cloudinary";
 import add_file from "@/public/undraw_add-file_lf11.png";
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+// const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 type accountProps = {
   id: number;
@@ -21,7 +21,7 @@ type accountProps = {
 };
 
 const AccountPageSection = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn } = UseAuth();
 
   const router = useRouter();
 
@@ -34,7 +34,7 @@ const AccountPageSection = () => {
       alert("You need to login first");
       return;
     }
-    await fetch(`${apiUrl}/logout`, {
+    await fetch("api/logout", {
       method: "POST",
     });
     if (isLoggedIn) {
@@ -46,7 +46,7 @@ const AccountPageSection = () => {
     const accountsPageApi = async () => {
       try {
         if (!isLoggedIn) return;
-        const res = await fetch(`${apiUrl}/myaccount`);
+        const res = await fetch("api/myaccount");
         const data = await res.json();
 
         if (res.status === 200) {
@@ -104,7 +104,7 @@ const AccountPageSection = () => {
                   const url = result.info.secure_url;
                   setAvatarURL(url);
 
-                  await fetch(`${apiUrl}/upload-avatar`, {
+                  await fetch("api/upload-avatar", {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { MdShoppingCart } from "react-icons/md";
 import { allProductsType } from "@/types/Product";
 import { FaRupeeSign } from "react-icons/fa";
-import { useAuth } from "@/providers/AuthProvider";
+import { UseAuth } from "@/providers/AuthProvider";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
@@ -13,10 +13,10 @@ type HeaderProps = {
   filterAllProducts: allProductsType[];
 };
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+// const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const Header = ({ filterAllProducts }: HeaderProps) => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn } = UseAuth();
 
   console.log(isLoggedIn, "isloggedinnnnnn");
 
@@ -47,7 +47,7 @@ const Header = ({ filterAllProducts }: HeaderProps) => {
       }
 
       toast.success("Item Added to Cart");
-      const res = await fetch(`${apiUrl}/cartapi`, {
+      const res = await fetch("api/cartapi", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -12,6 +12,9 @@ const ProductContext = createContext<ProductContextType>({ allProducts: [] });
 
 // const apiURL = process.env.NEXT_PUBLIC_API_URL;
 const ProductsProvider = ({ children }: { children: React.ReactNode }) => {
+  // const apiURL = process.env.NEXT_PUBLIC_RAILWAY_API_URL;
+
+  // console.log(apiURL, "ssksdlsjadlaj");
   const [allProducts, setAllProducts] = useState<allProductsType[]>([]);
 
   useEffect(() => {
@@ -40,4 +43,4 @@ const ProductsProvider = ({ children }: { children: React.ReactNode }) => {
 
 export default ProductsProvider;
 
-export const useProducts = () => useContext(ProductContext);
+export const UseProducts = () => useContext(ProductContext);

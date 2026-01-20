@@ -1,6 +1,6 @@
 "use client";
 
-import { useProducts } from "@/providers/ProductsProvider";
+import { UseProducts } from "@/providers/ProductsProvider";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import { FaRupeeSign } from "react-icons/fa";
@@ -11,7 +11,7 @@ const Solo = () => {
   const params = useParams();
   const id = Number(params.id);
 
-  const products = useProducts();
+  const products = UseProducts();
 
   const router = useRouter();
 
@@ -35,7 +35,7 @@ const Solo = () => {
   // console.log(filterShoeNames, "dwjdiwjdi");
 
   const categoryProducts = products.allProducts.filter(
-    (item) => item.category_id === id
+    (item) => item.category_id === id,
   );
 
   const filterBrandNames = [

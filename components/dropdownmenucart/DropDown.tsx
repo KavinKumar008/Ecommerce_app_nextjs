@@ -4,7 +4,7 @@ import { MdShoppingCart } from "react-icons/md";
 import Image from "next/image";
 import { MdDelete } from "react-icons/md";
 import { useRouter } from "next/navigation";
-import { useCart } from "@/providers/CartPageProvider";
+import { UseCart } from "@/providers/CartPageProvider";
 import { FaRupeeSign } from "react-icons/fa";
 import { useEffect } from "react";
 
@@ -22,12 +22,12 @@ const DropDown = ({
   setIsMounted,
 }: DropDownProps) => {
   const router = useRouter();
-  const { cartItemGet, setCartItemGet, deleteCartApi } = useCart();
+  const { cartItemGet, setCartItemGet, deleteCartApi } = UseCart();
 
   const totalPrice = cartItemGet.reduce(
     (acc, currentItem) =>
       acc + Number(currentItem.PRICE) * currentItem.QUANTITY,
-    0
+    0,
   );
 
   useEffect(() => {

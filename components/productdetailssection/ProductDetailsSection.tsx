@@ -5,10 +5,10 @@ import FeatureSection from "./productdetailssubsections/FeatureSection";
 import Header from "./productdetailssubsections/Header";
 import HighlightVideo from "./productdetailssubsections/HighlightVideo";
 import SpecificationSection from "./productdetailssubsections/SpecificationSection";
-import { useProducts } from "@/providers/ProductsProvider";
+import { UseProducts } from "@/providers/ProductsProvider";
 
 const ProductDetailsSection = () => {
-  const { allProducts } = useProducts();
+  const { allProducts } = UseProducts();
   // console.log(allProducts, "sldsjdjsdswiwoejweoweoweowejwo");
   const params = useParams();
   const id = Number(params.id);

@@ -4,10 +4,10 @@ import CheckOutFlow from "../checkoutflow/CheckOutFlow";
 import OrderSummaryCard from "../ordersummary/OrderSummaryCard";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { useCart } from "@/providers/CartPageProvider";
+import { UseCart } from "@/providers/CartPageProvider";
 import { useRazorOrder } from "@/providers/OrderProvider";
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+// const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 type ShippingForm = {
   mail: string;
@@ -39,7 +39,7 @@ const ShippingDetailsSection = () => {
 
   const [errors, setErrors] = useState<FormErrors>({});
 
-  const { cartItemGet } = useCart();
+  const { cartItemGet } = UseCart();
 
   const { setOrder } = useRazorOrder();
 
@@ -49,7 +49,7 @@ const ShippingDetailsSection = () => {
   console.log(pathName, "shippingpathhhhhh");
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     console.log(name);
@@ -115,7 +115,7 @@ const ShippingDetailsSection = () => {
       return false;
     }
 
-    const orderRes = await fetch(`${apiUrl}/create-order`, {
+    const orderRes = await fetch("api/create-order", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
