@@ -112,7 +112,9 @@ const NavBar = () => {
             }`}
             onClick={() => router.push("/accountpage")}
           >
-            <MdPerson className="text-gray-500 text-xl" />
+            <MdPerson
+              className={`${isActive("/accountpage") ? "text-blue-500 font-semibold" : "text-gray-500 text-xl"}`}
+            />
             <p className="lg:text-sm md:text-sm text-lg active:scale-90">
               Account
             </p>

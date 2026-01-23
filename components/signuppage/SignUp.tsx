@@ -215,7 +215,7 @@ const SignUp = () => {
           {showLogin ? (
             ""
           ) : (
-            <div className="text-sm">
+            <div className="text-sm text-center">
               Already have an account click.
               <button
                 className="text-blue-500 cursor-pointer active:scale-90"
