@@ -12,6 +12,7 @@ export async function GET(){
             oi.id, 
             oi.total_price,
             oi.quantity,
+            p.id as pid,
             p.brand_name,
             p.thumbnail
             FROM order_items AS oi

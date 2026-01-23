@@ -1,3 +1,5 @@
+// import { TiTick } from "react-icons/ti";
+
 type CheckOutFlowProps = {
   currentPage?: string;
 };
@@ -22,6 +24,7 @@ const CheckOutFlow = ({ currentPage }: CheckOutFlowProps) => {
               }`}
           >
             {index + 1}
+            {/* <TiTick /> */}
           </div>
           <span>{step.key === currentPage ? step.label : ""}</span>
         </div>

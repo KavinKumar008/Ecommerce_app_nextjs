@@ -1,20 +1,27 @@
 import { NextResponse } from "next/server";
-import { razorpay } from "@/lib/razorpay";
+// import { razorpay } from "@/lib/razorpay";
 import { getUserId } from "@/lib/getUser";
 import { db } from "@/lib/db";
+import Razorpay from "razorpay";
+
 
 export async function POST(request:Request){
   try {
 
+    
     const userId = await getUserId();
-
-     if (!userId) {
+    
+    if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     const {cartId,form} = await request.json();
-
-        const {address,city,fname,lname,mail,mobileno,postalcode,state} = {...form}
-
+    
+    const {address,city,fname,lname,mail,mobileno,postalcode,state} = {...form}
+    
+    const razorpay = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID!,
+    key_secret: process.env.RAZORPAY_KEY_SECRET!,
+  });
     console.log(cartId,"createordercartidddddd",address,city);
     const [cartItems]: any = await db.query(
       `SELECT price, quantity 

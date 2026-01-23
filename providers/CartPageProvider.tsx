@@ -62,6 +62,8 @@ export default CartPageProvider;
 export const UseCart = (): CartContextType => {
   const context = useContext(cartPageContext);
 
+  console.log(context, "cartcontextttt");
+
   if (!context) {
     throw new Error("UseCart must be used within CartPageProvider");
   }

@@ -5,6 +5,11 @@ import NavBar from "@/components/homepage/NavBar";
 import Footer from "@/components/homepage/Footer";
 import ProductsProvider from "@/providers/ProductsProvider";
 import ToastWrapper from "@/components/toastwrapper/ToastWrapper";
+import CartPageProvider from "@/providers/CartPageProvider";
+import HomePageProvider from "@/providers/HomePageProvider";
+import { AuthProvider } from "@/providers/AuthProvider";
+import MyOrderProvider from "@/providers/MyOrderProvider";
+import OrderProvider from "@/providers/OrderProvider";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -41,8 +46,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${montSerrat.variable} ${roboto.variable}`}>
-        {children}
-        <ToastWrapper />
+        <HomePageProvider>
+          <OrderProvider>
+            <MyOrderProvider>
+              <AuthProvider>
+                <CartPageProvider>
+                  <ProductsProvider>
+                    {/* <NavBar /> */}
+                    {children}
+                    {/* <Footer /> */}
+                    <ToastWrapper />
+                  </ProductsProvider>
+                </CartPageProvider>
+              </AuthProvider>
+            </MyOrderProvider>
+          </OrderProvider>
+        </HomePageProvider>
       </body>
     </html>
   );

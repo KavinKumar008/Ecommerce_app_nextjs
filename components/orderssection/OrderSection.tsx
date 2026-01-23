@@ -1,14 +1,20 @@
 "use client";
 
-import { UseAuth } from "@/providers/AuthProvider";
+// import { UseAuth } from "@/providers/AuthProvider";
 import { UseOrder } from "@/providers/MyOrderProvider";
 import Image from "next/image";
 import { FaRupeeSign } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import OrderPageSkeleton from "../skeleton/OrderPageSkeleton";
 
 const OrderSection = () => {
-  const { orderData } = UseOrder();
+  const { orderData, isLoading } = UseOrder();
 
-  const { isLoggedIn } = UseAuth();
+  console.log(isLoading, "isloadingggggg");
+
+  // const { isLoggedIn } = UseAuth();
+
+  const router = useRouter();
 
   // if (orderData) {
   //   return (
@@ -18,12 +24,12 @@ const OrderSection = () => {
   //   );
   // }
 
-  if (!isLoggedIn) {
+  if (isLoading) {
     return (
-      <div className="bg-red-50 lg:pl-34 lg:pr-34 lg:p-10 md:pl-34 md:pr-34 md:p-10 lg:mt-0 md:mt-0 mt-10">
-        <p className="text-center">
-          Please login and pay to see your order products
-        </p>
+      <div className="lg:pl-32 lg:pr-32 lg:p-10 md:p-7 p-3 lg:mt-0 md:mt-0 mt-12 space-y-5">
+        {Array.from({ length: 3 }, (_, index) => {
+          return <OrderPageSkeleton key={index} />;
+        })}
       </div>
     );
   }
@@ -44,6 +50,7 @@ const OrderSection = () => {
                   height={10}
                   alt={item.brand_name}
                   className="lg:h-20 lg:w-20 md:h-20 md:w-20 w-10 h-10 lg:ml-8 md:ml-8 ml-2 cursor-pointer"
+                  onClick={() => router.push(`/productdetailspage/${item.pid}`)}
                 />
               </div>
               <div>

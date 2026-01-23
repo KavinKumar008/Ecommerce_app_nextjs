@@ -9,29 +9,38 @@ type orderProps = {
   total_price: string;
   thumbnail: string;
   brand_name: string;
+  pid: number;
 };
 
 type orderContextValue = {
   orderData: orderProps[];
+  isLoading: boolean;
 };
 
 const OrderContext = createContext<orderContextValue | undefined>(undefined);
 
 const MyOrderProvider = ({ children }: { children: React.ReactNode }) => {
   const [orderData, setOrderData] = useState<orderProps[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const orderApi = async () => {
-      const orderRes = await fetch("/api/myorder");
+      try {
+        const orderRes = await fetch("/api/myorder");
 
-      if (!orderRes.ok) {
-        console.error("Order API failed:", orderRes.status);
-        return;
-      }
-      const data = await orderRes.json();
+        if (!orderRes.ok) {
+          console.error("Order API failed:", orderRes.status);
+          return;
+        }
+        const data = await orderRes.json();
 
-      if (orderRes.status === 200) {
-        setOrderData(data.data);
+        if (orderRes.status === 200) {
+          setOrderData(data.data);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -39,7 +48,7 @@ const MyOrderProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <OrderContext.Provider value={{ orderData }}>
+    <OrderContext.Provider value={{ orderData, isLoading }}>
       {children}
     </OrderContext.Provider>
   );

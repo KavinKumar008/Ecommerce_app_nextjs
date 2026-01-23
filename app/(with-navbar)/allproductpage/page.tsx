@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 import Pagination from "@/components/pagination/Pagination";
 import { db } from "@/lib/db";

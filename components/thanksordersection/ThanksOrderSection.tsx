@@ -22,7 +22,7 @@ const ThanksOrderSection = () => {
           <div className="lg:flex lg:flex-row md:flex md:flex-row flex flex-col gap-3 lg:gap-10 md:gap-10 mt-5">
             <button
               className="lg:w-42 md:w-42 w-64 border border-gray-500 p-3 rounded-full cursor-pointer outline-none"
-              onClick={() => router.push("/homepage")}
+              onClick={() => router.push("/")}
             >
               Go Back Shopping
             </button>
