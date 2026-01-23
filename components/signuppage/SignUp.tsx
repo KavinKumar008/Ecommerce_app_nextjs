@@ -121,7 +121,11 @@ const SignUp = () => {
     <div className="flex items-center justify-center min-h-screen">
       <div className="lg:w-[750px] lg:h-auto md:w-[750px] md:h-auto w-full rounded-lg shadow-2xl lg:flex md:flex">
         <div className="lg:w-[50%] md:w-[50%] w-full">
-          <Image src={ecomweb} alt="signupimage" className="w-92 h-[450px]" />
+          <Image
+            src={ecomweb}
+            alt="signupimage"
+            className="lg:w-92 lg:h-[450px] md:w-92 md:h-[450px] lg:p-0 md:p-0 p-5"
+          />
         </div>
         <div className="lg:w-[50%] md:w-[50%] w-full flex flex-col items-center gap-7 lg:p-0 md:p-0 p-5">
           <Image
